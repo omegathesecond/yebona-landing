@@ -333,18 +333,47 @@ function ShippingScreen() {
   )
 }
 
+// African countries for the picker
+const AFRICAN_COUNTRIES = [
+  { code: 'CM', name: 'Cameroon', flag: '🇨🇲', prefix: '+237' },
+  { code: 'NG', name: 'Nigeria', flag: '🇳🇬', prefix: '+234' },
+  { code: 'GH', name: 'Ghana', flag: '🇬🇭', prefix: '+233' },
+  { code: 'KE', name: 'Kenya', flag: '🇰🇪', prefix: '+254' },
+  { code: 'ZA', name: 'South Africa', flag: '🇿🇦', prefix: '+27' },
+  { code: 'SZ', name: 'Eswatini', flag: '🇸🇿', prefix: '+268' },
+  { code: 'TZ', name: 'Tanzania', flag: '🇹🇿', prefix: '+255' },
+  { code: 'UG', name: 'Uganda', flag: '🇺🇬', prefix: '+256' },
+  { code: 'RW', name: 'Rwanda', flag: '🇷🇼', prefix: '+250' },
+  { code: 'ET', name: 'Ethiopia', flag: '🇪🇹', prefix: '+251' },
+  { code: 'SN', name: 'Senegal', flag: '🇸🇳', prefix: '+221' },
+  { code: 'CI', name: "Côte d'Ivoire", flag: '🇨🇮', prefix: '+225' },
+  { code: 'CD', name: 'DR Congo', flag: '🇨🇩', prefix: '+243' },
+  { code: 'AO', name: 'Angola', flag: '🇦🇴', prefix: '+244' },
+  { code: 'ZW', name: 'Zimbabwe', flag: '🇿🇼', prefix: '+263' },
+  { code: 'ZM', name: 'Zambia', flag: '🇿🇲', prefix: '+260' },
+  { code: 'MW', name: 'Malawi', flag: '🇲🇼', prefix: '+265' },
+  { code: 'MZ', name: 'Mozambique', flag: '🇲🇿', prefix: '+258' },
+  { code: 'BW', name: 'Botswana', flag: '🇧🇼', prefix: '+267' },
+  { code: 'NA', name: 'Namibia', flag: '🇳🇦', prefix: '+264' },
+  { code: 'OTHER', name: 'Other', flag: '🌍', prefix: '' },
+]
+
 // Main App
 export default function App() {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
+  const [country, setCountry] = useState('CM')
   const [interest, setInterest] = useState('shipping')
   const [submitted, setSubmitted] = useState(false)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const selectedCountry = AFRICAN_COUNTRIES.find(c => c.code === country)
+
   const resetForm = () => {
     setName('')
     setPhone('')
+    setCountry('CM')
     setInterest('shipping')
     setSubmitted(false)
   }
@@ -359,8 +388,9 @@ export default function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
-          phone,
+          phone: selectedCountry?.prefix ? `${selectedCountry.prefix}${phone.replace(/^0+/, '')}` : phone,
           interest,
+          country: selectedCountry?.name || country,
           product: 'yebona',
           source: 'website'
         })
@@ -405,8 +435,8 @@ export default function App() {
     },
     {
       icon: Shield,
-      title: 'Protected Trades',
-      description: 'Verified partners, escrow payments, and buyer protection on every transaction.',
+      title: 'Escrow Protection',
+      description: 'Your money stays safe in escrow until you receive and verify your goods. Full refund guarantee if anything goes wrong.',
     },
   ]
 
@@ -720,6 +750,47 @@ export default function App() {
         </div>
       </section>
 
+      {/* Escrow Security Section */}
+      <section className="py-24 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="bg-gradient-to-br from-emerald-500/10 via-emerald-500/5 to-transparent border border-emerald-500/20 rounded-3xl p-8 md:p-12">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="w-24 h-24 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-3xl flex items-center justify-center shrink-0 shadow-lg shadow-emerald-500/30">
+                <Shield className="w-12 h-12 text-white" />
+              </div>
+              <div className="text-center md:text-left">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  Your Money is <span className="text-emerald-400">Protected</span>
+                </h2>
+                <p className="text-slate-400 text-lg mb-6 max-w-2xl">
+                  We use <strong className="text-white">escrow payments</strong> to protect both buyers and suppliers. 
+                  Your payment is held securely until you confirm receipt of your goods. 
+                  If anything goes wrong, you get a <strong className="text-white">full refund</strong>.
+                </p>
+                <div className="flex flex-wrap justify-center md:justify-start gap-4">
+                  <div className="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-xl">
+                    <Check className="w-5 h-5 text-emerald-400" />
+                    <span className="text-sm">Funds held in escrow</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-xl">
+                    <Check className="w-5 h-5 text-emerald-400" />
+                    <span className="text-sm">Verified suppliers only</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-xl">
+                    <Check className="w-5 h-5 text-emerald-400" />
+                    <span className="text-sm">Dispute resolution</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-xl">
+                    <Check className="w-5 h-5 text-emerald-400" />
+                    <span className="text-sm">Money-back guarantee</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How It Works */}
       <section id="how-it-works" className="py-24 px-6 bg-slate-900/30">
         <div className="max-w-7xl mx-auto">
@@ -813,24 +884,42 @@ export default function App() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Name & Phone */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Your name"
-                  required
-                  className="flex-1 bg-slate-900/50 border border-slate-800 rounded-2xl px-6 py-4 text-white placeholder-slate-500 outline-none focus:border-blue-500 transition-colors text-lg"
-                />
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="WhatsApp number"
-                  required
-                  className="flex-1 bg-slate-900/50 border border-slate-800 rounded-2xl px-6 py-4 text-white placeholder-slate-500 outline-none focus:border-blue-500 transition-colors text-lg"
-                />
+              {/* Name */}
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your name"
+                required
+                className="w-full bg-slate-900/50 border border-slate-800 rounded-2xl px-6 py-4 text-white placeholder-slate-500 outline-none focus:border-blue-500 transition-colors text-lg"
+              />
+              
+              {/* Country & Phone */}
+              <div className="flex gap-3">
+                <select
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                  className="bg-slate-900/50 border border-slate-800 rounded-2xl px-4 py-4 text-white outline-none focus:border-blue-500 transition-colors text-lg appearance-none cursor-pointer min-w-[140px]"
+                >
+                  {AFRICAN_COUNTRIES.map((c) => (
+                    <option key={c.code} value={c.code}>
+                      {c.flag} {c.name}
+                    </option>
+                  ))}
+                </select>
+                <div className="flex-1 relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                    {selectedCountry?.prefix}
+                  </span>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Phone number"
+                    required
+                    className="w-full bg-slate-900/50 border border-slate-800 rounded-2xl pl-16 pr-6 py-4 text-white placeholder-slate-500 outline-none focus:border-blue-500 transition-colors text-lg"
+                  />
+                </div>
               </div>
               
               {/* Interest Selection */}
