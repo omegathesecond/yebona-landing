@@ -380,179 +380,286 @@ function EscrowTransactionMockup() {
   )
 }
 
-// Detailed Provider Card (for listing mockup)
-function DetailedProviderCard({ provider, featured }) {
+// Phone Frame wrapper for consistent styling
+function PhoneFrame({ children, className = "" }) {
   return (
-    <div className={`rounded-2xl p-4 border transition-all hover:scale-[1.02] ${
-      featured 
-        ? 'bg-gradient-to-br from-blue-500/10 via-indigo-500/5 to-transparent border-blue-500/30' 
-        : 'bg-slate-900/50 border-slate-700/50 hover:border-slate-600'
-    }`}>
-      <div className="flex items-start gap-4">
-        {/* Avatar */}
-        <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-white text-lg font-bold shrink-0 ${
-          provider.bgGradient || 'bg-gradient-to-br from-blue-500 to-indigo-600'
-        }`}>
-          {provider.initials}
-        </div>
-        
-        <div className="flex-1 min-w-0">
-          {/* Header */}
-          <div className="flex items-start justify-between gap-2 mb-1">
-            <div>
-              <div className="flex items-center gap-2">
-                <h4 className="text-white font-bold text-base truncate">{provider.name}</h4>
-                {provider.verified && (
-                  <BadgeCheck className="w-4 h-4 text-blue-400 shrink-0" />
-                )}
-              </div>
-              <p className="text-slate-400 text-sm">{provider.service}</p>
-            </div>
-            {featured && (
-              <span className="bg-blue-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shrink-0">
-                TOP RATED
-              </span>
-            )}
-          </div>
-          
-          {/* Stats Row */}
-          <div className="flex flex-wrap items-center gap-3 mt-2">
+    <div className={`phone-mockup-static ${className}`}>
+      <div className="relative bg-gradient-to-b from-slate-800 to-slate-900 rounded-[2.5rem] p-2.5 shadow-2xl shadow-blue-500/20">
+        {/* Notch */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-slate-900 rounded-b-2xl z-10" />
+        {/* Screen */}
+        <div className="relative bg-slate-950 rounded-[2rem] overflow-hidden min-h-[480px]">
+          {/* Status Bar */}
+          <div className="flex justify-between items-center px-6 py-2 text-white/60 text-xs">
+            <span className="font-medium">9:41</span>
             <div className="flex items-center gap-1">
-              <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-              <span className="text-white text-sm font-semibold">{provider.rating}</span>
-              <span className="text-slate-500 text-sm">({provider.reviews} reviews)</span>
+              <div className="w-5 h-2.5 bg-white/60 rounded-sm" />
             </div>
-            <div className="flex items-center gap-1 text-slate-400 text-sm">
-              <Clock className="w-3.5 h-3.5" />
-              <span>{provider.responseTime}</span>
-            </div>
-            {provider.completedJobs && (
-              <div className="flex items-center gap-1 text-emerald-400 text-sm">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>{provider.completedJobs} completed</span>
-              </div>
-            )}
           </div>
-          
-          {/* Services Tags */}
-          {provider.tags && (
-            <div className="flex flex-wrap gap-1.5 mt-3">
-              {provider.tags.map((tag, i) => (
-                <span key={i} className="bg-slate-800 text-slate-300 text-xs px-2 py-1 rounded-md">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
+          {children}
         </div>
       </div>
     </div>
   )
 }
 
-// Visual Step Flow Component (Desktop)
-function StepFlowSection() {
-  const steps = [
-    {
-      num: 1,
-      title: 'Tell us what you need',
-      desc: 'Select the service type and describe your requirements',
-      icon: Clipboard,
-      color: 'from-blue-500 to-blue-600',
-      iconBg: 'bg-blue-500/20',
-    },
-    {
-      num: 2,
-      title: 'Get matched with verified providers',
-      desc: 'We show you pre-vetted providers that match your needs',
-      icon: UserCheck,
-      color: 'from-purple-500 to-purple-600',
-      iconBg: 'bg-purple-500/20',
-    },
-    {
-      num: 3,
-      title: 'Compare quotes & reviews',
-      desc: 'See rates, fees, ratings side-by-side and choose the best fit',
-      icon: BarChart3,
-      color: 'from-amber-500 to-orange-600',
-      iconBg: 'bg-amber-500/20',
-    },
-    {
-      num: 4,
-      title: 'Transact with escrow protection',
-      desc: 'Your payment is held safely until you confirm satisfaction',
-      icon: Shield,
-      color: 'from-emerald-500 to-emerald-600',
-      iconBg: 'bg-emerald-500/20',
-    },
+// Bottom Navigation Component
+function BottomNav({ active = 'home' }) {
+  const items = [
+    { id: 'home', icon: Globe, label: 'Home' },
+    { id: 'search', icon: Search, label: 'Browse' },
+    { id: 'transactions', icon: Shield, label: 'Escrow' },
+    { id: 'profile', icon: Users, label: 'Profile' },
   ]
-
+  
   return (
-    <div className="relative">
-      {/* Desktop/Tablet Flow */}
-      <div className="hidden md:block">
-        <div className="grid md:grid-cols-4 gap-4">
+    <div className="absolute bottom-0 left-0 right-0 bg-slate-900/95 backdrop-blur border-t border-slate-800 px-2 py-2 rounded-b-[2rem]">
+      <div className="flex justify-around">
+        {items.map((item) => (
+          <button key={item.id} className="flex flex-col items-center gap-0.5 px-3 py-1">
+            <item.icon className={`w-5 h-5 ${active === item.id ? 'text-blue-400' : 'text-slate-500'}`} />
+            <span className={`text-[10px] ${active === item.id ? 'text-blue-400 font-medium' : 'text-slate-500'}`}>
+              {item.label}
+            </span>
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// Phone mockup: Provider Profile Detail
+function ProviderProfileMockup() {
+  return (
+    <PhoneFrame>
+      <div className="px-4 pb-20">
+        {/* Back Header */}
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center">
+            <ChevronRight className="w-4 h-4 text-slate-400 rotate-180" />
+          </div>
+          <span className="text-white font-semibold text-sm">Provider Profile</span>
+        </div>
+        
+        {/* Provider Header */}
+        <div className="text-center mb-4">
+          <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center text-white text-xl font-bold mx-auto mb-3">
+            QF
+          </div>
+          <div className="flex items-center justify-center gap-1.5 mb-1">
+            <h3 className="text-white font-bold">QuickFX Exchange</h3>
+            <BadgeCheck className="w-4 h-4 text-blue-400" />
+          </div>
+          <p className="text-slate-400 text-xs">Currency Exchange • Guangzhou</p>
+          
+          {/* Rating */}
+          <div className="flex items-center justify-center gap-2 mt-2">
+            <div className="flex items-center gap-1">
+              {[1,2,3,4,5].map(i => (
+                <Star key={i} className={`w-4 h-4 ${i <= 4 ? 'text-amber-400 fill-amber-400' : 'text-amber-400/30 fill-amber-400/30'}`} />
+              ))}
+            </div>
+            <span className="text-white font-semibold text-sm">4.9</span>
+            <span className="text-slate-500 text-xs">(234 reviews)</span>
+          </div>
+        </div>
+        
+        {/* Stats Row */}
+        <div className="grid grid-cols-3 gap-2 mb-4">
+          {[
+            { label: 'Completed', value: '1,847', icon: CheckCircle2 },
+            { label: 'Response', value: '< 1 hr', icon: Clock },
+            { label: 'Member', value: '2 yrs', icon: Award },
+          ].map((stat, i) => (
+            <div key={i} className="bg-slate-900/80 rounded-xl p-2.5 text-center">
+              <stat.icon className="w-4 h-4 text-blue-400 mx-auto mb-1" />
+              <p className="text-white font-bold text-sm">{stat.value}</p>
+              <p className="text-slate-500 text-[10px]">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+        
+        {/* Services */}
+        <div className="mb-4">
+          <p className="text-slate-400 text-xs mb-2">Services</p>
+          <div className="flex flex-wrap gap-1.5">
+            {['USD → CNY', 'EUR → CNY', 'ZAR → CNY', 'Same-day'].map((tag, i) => (
+              <span key={i} className="bg-blue-500/20 text-blue-300 text-xs px-2.5 py-1 rounded-lg">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+        
+        {/* Recent Reviews */}
+        <div className="mb-4">
+          <p className="text-slate-400 text-xs mb-2">Recent Reviews</p>
+          <div className="bg-slate-900/60 rounded-xl p-3">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-6 h-6 bg-slate-700 rounded-full" />
+              <span className="text-white text-xs font-medium">John M.</span>
+              <div className="flex items-center gap-0.5 ml-auto">
+                {[1,2,3,4,5].map(i => (
+                  <Star key={i} className="w-3 h-3 text-amber-400 fill-amber-400" />
+                ))}
+              </div>
+            </div>
+            <p className="text-slate-300 text-xs leading-relaxed">
+              "Fast and reliable! Got my CNY within 2 hours. Best rate I found."
+            </p>
+          </div>
+        </div>
+        
+        {/* CTA Button */}
+        <button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-semibold py-3 rounded-xl flex items-center justify-center gap-2">
+          <DollarSign className="w-4 h-4" />
+          Request Quote
+        </button>
+      </div>
+      <BottomNav active="search" />
+    </PhoneFrame>
+  )
+}
+
+// Phone mockup: How It Works / Onboarding
+function HowItWorksMockup() {
+  const steps = [
+    { num: 1, icon: Clipboard, title: 'Tell us what you need', color: 'from-blue-500 to-blue-600' },
+    { num: 2, icon: UserCheck, title: 'Get matched with providers', color: 'from-purple-500 to-purple-600' },
+    { num: 3, icon: BarChart3, title: 'Compare quotes & reviews', color: 'from-amber-500 to-orange-500' },
+    { num: 4, icon: Shield, title: 'Transact with escrow', color: 'from-emerald-500 to-emerald-600' },
+  ]
+  
+  return (
+    <PhoneFrame>
+      <div className="px-4 pb-4">
+        {/* Header */}
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-lg flex items-center justify-center">
+            <Globe className="w-4 h-4 text-white" />
+          </div>
+          <span className="text-white font-bold">Yebona</span>
+        </div>
+        
+        <h3 className="text-white font-bold text-lg mb-1">How it works</h3>
+        <p className="text-slate-400 text-xs mb-5">4 simple steps to safe importing</p>
+        
+        {/* Steps */}
+        <div className="relative space-y-4">
+          {/* Connector Line */}
+          <div className="absolute left-4 top-8 bottom-8 w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 via-amber-500 to-emerald-500 opacity-30" />
+          
           {steps.map((step, i) => (
-            <div key={i} className="relative">
-              {/* Connector Arrow */}
-              {i < steps.length - 1 && (
-                <div className="hidden md:flex absolute top-12 -right-2 z-10 items-center justify-center">
-                  <div className="w-4 h-4 bg-slate-800 rounded-full flex items-center justify-center border border-slate-700">
-                    <ChevronRight className="w-3 h-3 text-slate-500" />
-                  </div>
+            <div key={i} className="flex items-center gap-3 relative">
+              <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center shrink-0 z-10 shadow-lg`}>
+                <step.icon className="w-4 h-4 text-white" />
+              </div>
+              <div className="flex-1 bg-slate-900/60 border border-slate-800 rounded-xl p-3">
+                <div className="flex items-center gap-2">
+                  <span className={`text-[10px] font-bold bg-gradient-to-r ${step.color} bg-clip-text text-transparent`}>
+                    STEP {step.num}
+                  </span>
                 </div>
-              )}
-              
-              {/* Step Card */}
-              <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-5 h-full hover:border-slate-700 transition-all group">
-                {/* Icon */}
-                <div className={`w-14 h-14 ${step.iconBg} border border-white/10 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
-                  <step.icon className={`w-7 h-7 bg-gradient-to-br ${step.color} bg-clip-text text-transparent`} style={{ color: step.color.includes('blue') ? '#3b82f6' : step.color.includes('purple') ? '#a855f7' : step.color.includes('amber') ? '#f59e0b' : '#10b981' }} />
-                </div>
-                
-                {/* Step Number */}
-                <div className={`inline-flex items-center justify-center w-6 h-6 rounded-full bg-gradient-to-br ${step.color} text-white text-xs font-bold mb-3`}>
-                  {step.num}
-                </div>
-                
-                {/* Content */}
-                <h3 className="text-white font-bold text-base mb-2">{step.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{step.desc}</p>
+                <p className="text-white text-sm font-medium mt-0.5">{step.title}</p>
               </div>
             </div>
           ))}
         </div>
+        
+        {/* CTA */}
+        <button className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-semibold py-3 rounded-xl flex items-center justify-center gap-2 mt-6">
+          Get Started
+          <ArrowRight className="w-4 h-4" />
+        </button>
+        
+        {/* Trust Badge */}
+        <div className="mt-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-3 flex items-center gap-2">
+          <Shield className="w-5 h-5 text-emerald-400" />
+          <div>
+            <p className="text-emerald-300 text-xs font-semibold">Escrow Protected</p>
+            <p className="text-slate-500 text-[10px]">Your money is safe until you're satisfied</p>
+          </div>
+        </div>
       </div>
-      
-      {/* Mobile Flow */}
-      <div className="md:hidden space-y-4">
-        {steps.map((step, i) => (
-          <div key={i} className="relative">
-            {/* Connector Line */}
-            {i < steps.length - 1 && (
-              <div className="absolute left-7 top-[72px] w-0.5 h-8 bg-gradient-to-b from-slate-700 to-transparent" />
-            )}
-            
-            <div className="flex gap-4 items-start">
-              {/* Icon */}
-              <div className={`w-14 h-14 ${step.iconBg} border border-white/10 rounded-2xl flex items-center justify-center shrink-0`}>
-                <step.icon className="w-6 h-6" style={{ color: step.color.includes('blue') ? '#3b82f6' : step.color.includes('purple') ? '#a855f7' : step.color.includes('amber') ? '#f59e0b' : '#10b981' }} />
+    </PhoneFrame>
+  )
+}
+
+// Phone mockup: Service Selection
+function ServiceSelectionMockup() {
+  const services = [
+    { icon: DollarSign, name: 'Currency Exchange', desc: 'Convert to CNY', color: 'from-emerald-500 to-teal-600' },
+    { icon: Search, name: 'Sourcing Agent', desc: 'Find products', color: 'from-blue-500 to-indigo-600' },
+    { icon: Factory, name: 'Factory Verification', desc: 'Quality checks', color: 'from-purple-500 to-purple-600' },
+    { icon: Ship, name: 'Freight & Shipping', desc: 'Sea, air, rail', color: 'from-orange-500 to-red-600' },
+  ]
+  
+  return (
+    <PhoneFrame>
+      <div className="px-4 pb-20">
+        {/* Header */}
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-lg flex items-center justify-center">
+            <Globe className="w-4 h-4 text-white" />
+          </div>
+          <span className="text-white font-bold">Yebona</span>
+        </div>
+        
+        <h3 className="text-white font-bold text-lg mb-1">What do you need?</h3>
+        <p className="text-slate-400 text-xs mb-4">Select a service to get started</p>
+        
+        {/* Service Cards */}
+        <div className="grid grid-cols-2 gap-2 mb-4">
+          {services.map((service, i) => (
+            <button key={i} className={`bg-slate-900/60 border border-slate-800 rounded-xl p-3 text-left hover:border-slate-700 transition-all ${i === 0 ? 'ring-2 ring-blue-500 border-blue-500/50' : ''}`}>
+              <div className={`w-10 h-10 bg-gradient-to-br ${service.color} rounded-lg flex items-center justify-center mb-2`}>
+                <service.icon className="w-5 h-5 text-white" />
               </div>
-              
-              <div className="flex-1 pt-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className={`inline-flex items-center justify-center w-5 h-5 rounded-full bg-gradient-to-br ${step.color} text-white text-[10px] font-bold`}>
-                    {step.num}
-                  </span>
-                  <h3 className="text-white font-bold text-sm">{step.title}</h3>
-                </div>
-                <p className="text-slate-400 text-sm">{step.desc}</p>
-              </div>
+              <p className="text-white font-semibold text-xs">{service.name}</p>
+              <p className="text-slate-500 text-[10px]">{service.desc}</p>
+            </button>
+          ))}
+        </div>
+        
+        {/* Quick Stats */}
+        <div className="bg-slate-900/40 rounded-xl p-3 mb-4">
+          <div className="flex items-center justify-between">
+            <div className="text-center flex-1">
+              <p className="text-white font-bold text-lg">500+</p>
+              <p className="text-slate-500 text-[10px]">Verified Providers</p>
+            </div>
+            <div className="w-px h-8 bg-slate-700" />
+            <div className="text-center flex-1">
+              <p className="text-white font-bold text-lg">10K+</p>
+              <p className="text-slate-500 text-[10px]">Transactions</p>
+            </div>
+            <div className="w-px h-8 bg-slate-700" />
+            <div className="text-center flex-1">
+              <p className="text-white font-bold text-lg">4.8</p>
+              <p className="text-slate-500 text-[10px]">Avg Rating</p>
             </div>
           </div>
-        ))}
+        </div>
+        
+        {/* Recent Activity */}
+        <p className="text-slate-400 text-xs mb-2">Recent successful transactions</p>
+        <div className="space-y-2">
+          {[
+            { user: 'James K.', action: 'exchanged $2,000 → CNY', time: '2 min ago' },
+            { user: 'Sarah M.', action: 'shipped 500kg to Lagos', time: '15 min ago' },
+          ].map((item, i) => (
+            <div key={i} className="bg-slate-900/40 rounded-lg p-2.5 flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <div className="flex-1">
+                <p className="text-white text-xs"><span className="font-medium">{item.user}</span> {item.action}</p>
+              </div>
+              <span className="text-slate-500 text-[10px]">{item.time}</span>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+      <BottomNav active="home" />
+    </PhoneFrame>
   )
 }
 
@@ -676,7 +783,7 @@ export default function App() {
               href="#waitlist" 
               className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-5 py-2 rounded-xl font-semibold transition-all shadow-lg shadow-blue-500/25"
             >
-              Get Early Access
+              Get the App
             </a>
           </div>
         </div>
@@ -703,7 +810,7 @@ export default function App() {
               </h1>
               
               <p className="text-xl text-slate-300 mb-8 max-w-xl leading-relaxed">
-                A marketplace where <strong className="text-white">service providers list their services</strong> — currency exchange, sourcing, freight, and more. You compare, choose, and transact safely with escrow protection.
+                A <strong className="text-white">mobile app</strong> where service providers list their services — currency exchange, sourcing, freight, and more. Browse, compare, and transact safely with escrow protection.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -711,7 +818,7 @@ export default function App() {
                   href="#waitlist" 
                   className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-8 py-4 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-[1.02]"
                 >
-                  Get Early Access
+                  Get the App Early
                   <ArrowRight className="w-5 h-5" />
                 </a>
               </div>
@@ -792,16 +899,16 @@ export default function App() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-4 py-2 mb-6">
               <Check className="w-4 h-4 text-emerald-400" />
-              <span className="text-sm text-emerald-300 font-medium">The Yebona Solution</span>
+              <span className="text-sm text-emerald-300 font-medium">The Yebona App</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
-              A platform where{' '}
+              One app where{' '}
               <span className="bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
                 providers list their services
               </span>
             </h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Service providers list what they offer. You browse, compare, and choose — all with verification and escrow protection.
+              Service providers list what they offer. Browse on your phone, compare instantly, and transact with escrow protection.
             </p>
           </div>
           
@@ -889,19 +996,33 @@ export default function App() {
         </div>
       </section>
 
-      {/* How It Works - Visual Step Flow */}
+      {/* How It Works - Phone Mockups */}
       <section id="how-it-works" className="py-20 px-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-2 mb-6">
               <Zap className="w-4 h-4 text-blue-400" />
               <span className="text-sm text-blue-300 font-medium">Simple 4-Step Process</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">How it works</h2>
-            <p className="text-slate-400 text-lg">Four simple steps to safe, successful imports</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">How the app works</h2>
+            <p className="text-slate-400 text-lg">Four simple steps in our mobile app</p>
           </div>
           
-          <StepFlowSection />
+          {/* Two phones side by side */}
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-start justify-items-center">
+            <div className="text-center">
+              <ServiceSelectionMockup />
+              <p className="text-slate-400 text-sm mt-4 max-w-[280px] mx-auto">
+                <span className="text-white font-semibold">Step 1:</span> Open the app and select what service you need
+              </p>
+            </div>
+            <div className="text-center">
+              <HowItWorksMockup />
+              <p className="text-slate-400 text-sm mt-4 max-w-[280px] mx-auto">
+                <span className="text-white font-semibold">The journey:</span> From request to protected transaction
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -913,23 +1034,23 @@ export default function App() {
             <div className="order-2 lg:order-1">
               <div className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/30 rounded-full px-4 py-2 mb-6">
                 <Scale className="w-4 h-4 text-purple-400" />
-                <span className="text-sm text-purple-300 font-medium">Smart Comparison</span>
+                <span className="text-sm text-purple-300 font-medium">In-App Comparison</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
                 Compare providers{' '}
                 <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                  side-by-side
+                  on your phone
                 </span>
               </h2>
               <p className="text-slate-400 text-lg mb-6 leading-relaxed">
-                No more guessing. See exchange rates, fees, delivery times, and ratings all in one place. Make informed decisions with full transparency.
+                Swipe through providers and compare them instantly. See rates, fees, and ratings at a glance — all from your mobile.
               </p>
               <ul className="space-y-3">
                 {[
-                  { icon: TrendingUp, text: 'Real-time rates and pricing' },
-                  { icon: Star, text: 'Verified reviews from real users' },
-                  { icon: Clock, text: 'Delivery time estimates' },
-                  { icon: Award, text: '"Best Rate" & "Most Trusted" badges' },
+                  { icon: TrendingUp, text: 'Real-time rates updated live' },
+                  { icon: Star, text: 'Tap to read full reviews' },
+                  { icon: Clock, text: 'See estimated delivery times' },
+                  { icon: Award, text: 'Smart badges highlight best options' },
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-slate-300">
                     <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center">
@@ -962,25 +1083,25 @@ export default function App() {
             <div>
               <div className="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 rounded-full px-4 py-2 mb-6">
                 <Shield className="w-4 h-4 text-emerald-400" />
-                <span className="text-sm text-emerald-300 font-medium">Escrow Protection</span>
+                <span className="text-sm text-emerald-300 font-medium">In-App Escrow Tracking</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
-                Track your transaction{' '}
+                Track transactions{' '}
                 <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                  every step
+                  in real-time
                 </span>
               </h2>
               <p className="text-slate-400 text-lg mb-6 leading-relaxed">
-                Your money is protected throughout the entire process. Watch as it moves from your payment to secure escrow, then released only when you're satisfied.
+                Watch your money move through the escrow process right on your phone. Get push notifications at every step. Confirm delivery with one tap.
               </p>
               
               {/* Escrow Steps */}
               <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-5 space-y-4">
                 {[
-                  { step: 1, title: 'You Pay', desc: 'Funds sent to secure escrow', color: 'text-blue-400' },
-                  { step: 2, title: 'Funds Held', desc: 'Money safely locked until delivery', color: 'text-purple-400' },
-                  { step: 3, title: 'Service Delivered', desc: 'Provider completes the service', color: 'text-amber-400' },
-                  { step: 4, title: 'Funds Released', desc: 'You confirm, provider gets paid', color: 'text-emerald-400' },
+                  { step: 1, title: 'You Pay', desc: 'Tap to pay securely in-app', color: 'text-blue-400' },
+                  { step: 2, title: 'Funds Held', desc: 'Watch progress in real-time', color: 'text-purple-400' },
+                  { step: 3, title: 'Service Delivered', desc: 'Get notified when complete', color: 'text-amber-400' },
+                  { step: 4, title: 'Funds Released', desc: 'One-tap confirmation', color: 'text-emerald-400' },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-4">
                     <div className={`w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-sm font-bold ${item.color}`}>
@@ -1001,72 +1122,51 @@ export default function App() {
         </div>
       </section>
 
-      {/* Provider Cards Section */}
+      {/* Provider Profile Section */}
       <section className="py-16 px-6 bg-slate-900/30">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-2 mb-6">
-              <Users className="w-4 h-4 text-amber-400" />
-              <span className="text-sm text-amber-300 font-medium">Provider Marketplace</span>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left - Phone Mockup */}
+            <div className="flex justify-center">
+              <ProviderProfileMockup />
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
-              What provider listings{' '}
-              <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
-                look like
-              </span>
-            </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Detailed profiles with ratings, reviews, services, and response times. Everything you need to make the right choice.
-            </p>
-          </div>
-          
-          {/* Provider Cards Grid */}
-          <div className="space-y-4">
-            <DetailedProviderCard 
-              provider={{
-                name: 'QuickFX Exchange',
-                initials: 'QF',
-                service: 'Currency Exchange • Guangzhou, China',
-                rating: 4.9,
-                reviews: 234,
-                responseTime: 'Responds in < 1 hour',
-                completedJobs: 1847,
-                verified: true,
-                tags: ['USD → CNY', 'EUR → CNY', 'ZAR → CNY', 'Same-day transfer'],
-                bgGradient: 'bg-gradient-to-br from-emerald-500 to-teal-600',
-              }}
-              featured={true}
-            />
-            <DetailedProviderCard 
-              provider={{
-                name: 'Zhang Trading Company',
-                initials: 'ZT',
-                service: 'Sourcing Agent • Yiwu Market Specialist',
-                rating: 4.8,
-                reviews: 189,
-                responseTime: 'Responds in < 2 hours',
-                completedJobs: 923,
-                verified: true,
-                tags: ['Product sourcing', 'Price negotiation', 'Quality inspection', 'Factory visits'],
-                bgGradient: 'bg-gradient-to-br from-blue-500 to-indigo-600',
-              }}
-              featured={false}
-            />
-            <DetailedProviderCard 
-              provider={{
-                name: 'African Star Freight',
-                initials: 'AS',
-                service: 'Shipping & Logistics • Sea, Air, Rail',
-                rating: 4.7,
-                reviews: 156,
-                responseTime: 'Responds in < 3 hours',
-                completedJobs: 2341,
-                verified: true,
-                tags: ['Sea freight', 'Air cargo', 'Door-to-door', 'Customs clearance'],
-                bgGradient: 'bg-gradient-to-br from-orange-500 to-red-600',
-              }}
-              featured={false}
-            />
+            
+            {/* Right - Text */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-2 mb-6">
+                <Users className="w-4 h-4 text-amber-400" />
+                <span className="text-sm text-amber-300 font-medium">Provider Profiles</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+                See everything{' '}
+                <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
+                  before you decide
+                </span>
+              </h2>
+              <p className="text-slate-400 text-lg mb-6 leading-relaxed">
+                Tap on any provider to see their full profile: ratings, reviews, services, response time, and completed transactions.
+              </p>
+              
+              {/* Features List */}
+              <div className="space-y-4">
+                {[
+                  { icon: Star, title: 'Verified Reviews', desc: 'Real feedback from real customers', color: 'text-amber-400' },
+                  { icon: CheckCircle2, title: 'Track Record', desc: 'See completed jobs and success rate', color: 'text-emerald-400' },
+                  { icon: Clock, title: 'Response Time', desc: 'Know how fast they typically reply', color: 'text-blue-400' },
+                  { icon: MessageSquare, title: 'Direct Chat', desc: 'Message providers directly in-app', color: 'text-purple-400' },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center shrink-0">
+                      <item.icon className={`w-5 h-5 ${item.color}`} />
+                    </div>
+                    <div>
+                      <h4 className="text-white font-semibold">{item.title}</h4>
+                      <p className="text-slate-400 text-sm">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1105,13 +1205,13 @@ export default function App() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent" />
         <div className="max-w-xl mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-2 mb-6">
-            <span className="text-sm text-blue-300 font-medium">🚀 Launching Soon</span>
+            <span className="text-sm text-blue-300 font-medium">📱 App Launching Soon</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
-            Get Early Access
+            Get the App Early
           </h2>
           <p className="text-slate-400 text-lg mb-8">
-            Be first in line when we launch. Whether you want to find providers or list your services.
+            Be first to download when we launch on iOS & Android. Whether you want to find providers or list your services.
           </p>
           
           {submitted ? (
@@ -1120,7 +1220,7 @@ export default function App() {
                 <Check className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-2">You're on the list! 🎉</h3>
-              <p className="text-slate-400 mb-4">We'll reach out on WhatsApp when Yebona launches.</p>
+              <p className="text-slate-400 mb-4">We'll message you on WhatsApp when the app is ready to download.</p>
               <button
                 onClick={resetForm}
                 className="text-blue-400 hover:text-blue-300 text-sm font-medium"
@@ -1195,10 +1295,10 @@ export default function App() {
                 disabled={isSubmitting}
                 className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-6 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 disabled:opacity-50"
               >
-                {isSubmitting ? 'Joining...' : 'Get Early Access'}
+                {isSubmitting ? 'Joining...' : 'Join the Waitlist'}
                 {!isSubmitting && <ArrowRight className="w-5 h-5" />}
               </button>
-              <p className="text-slate-500 text-sm">We'll notify you on WhatsApp when we launch.</p>
+              <p className="text-slate-500 text-sm">We'll notify you on WhatsApp when the app launches.</p>
             </form>
           )}
         </div>
