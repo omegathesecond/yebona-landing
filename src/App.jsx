@@ -490,62 +490,158 @@ export default function App() {
         </div>
       </section>
 
-      {/* App Services Showcase - Multiple Phone Mockups */}
-      <section className="py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+      {/* App Services - Clean Mobile Layout */}
+      <section className="py-20 px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               One App,{' '}
               <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
                 All Services
               </span>
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Everything you need to import from China — right in your pocket.
+            <p className="text-slate-400 text-lg">
+              Everything you need to import from China.
             </p>
           </div>
           
-          {/* Three Phone Mockups */}
-          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
-            {/* Suppliers */}
-            <div className="flex flex-col items-center">
-              <div className="mb-6 text-center">
-                <span className="text-4xl mb-3 block">🏭</span>
-                <h3 className="text-xl font-bold text-white mb-2">Find Suppliers</h3>
-                <p className="text-slate-400 text-sm">Browse verified suppliers on Alibaba, 1688 & Yiwu</p>
+          {/* Services List */}
+          <div className="space-y-6">
+            {/* Find Suppliers */}
+            <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 md:p-8">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="w-14 h-14 bg-gradient-to-br from-orange-500/20 to-red-500/20 border border-orange-500/30 rounded-2xl flex items-center justify-center text-2xl shrink-0">
+                  🏭
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-2">Find Suppliers</h3>
+                  <p className="text-slate-400">Browse verified suppliers on Alibaba, 1688 & Yiwu. Compare prices, check ratings, and connect directly.</p>
+                </div>
               </div>
-              <div className="transform scale-[0.85] origin-top">
-                <PhoneMockup>
-                  <SuppliersScreen />
-                </PhoneMockup>
+              {/* App Preview */}
+              <div className="bg-slate-950 rounded-2xl p-4 border border-slate-800">
+                <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
+                  {['🔌 Electronics', '👗 Fashion', '🏠 Home', '🔧 Industrial'].map((cat, i) => (
+                    <span key={cat} className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap ${i === 0 ? 'bg-blue-500 text-white' : 'bg-slate-800 text-slate-400'}`}>{cat}</span>
+                  ))}
+                </div>
+                <div className="space-y-3">
+                  {[
+                    { name: 'Shenzhen Tech Co.', type: 'Electronics • Gold Supplier', rating: '4.9', top: true },
+                    { name: 'Guangzhou Fashion Hub', type: 'Clothing & Textiles', rating: '4.8', top: false },
+                    { name: 'Yiwu Trading Center', type: 'General Goods', rating: '4.7', top: false },
+                  ].map((s, i) => (
+                    <div key={i} className={`flex items-center gap-3 p-3 rounded-xl ${s.top ? 'bg-blue-500/10 border border-blue-500/30' : 'bg-slate-900/50'}`}>
+                      <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center text-white text-sm font-bold">{s.name[0]}</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <p className="text-white font-medium text-sm truncate">{s.name}</p>
+                          {s.top && <span className="bg-blue-500 text-white text-[10px] px-2 py-0.5 rounded-full">TOP</span>}
+                        </div>
+                        <p className="text-slate-500 text-xs">{s.type}</p>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                        <span className="text-white text-xs">{s.rating}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             
             {/* Shipping */}
-            <div className="flex flex-col items-center">
-              <div className="mb-6 text-center">
-                <span className="text-4xl mb-3 block">📦</span>
-                <h3 className="text-xl font-bold text-white mb-2">Ship Your Goods</h3>
-                <p className="text-slate-400 text-sm">Compare air, sea & rail freight partners</p>
+            <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 md:p-8">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 border border-blue-500/30 rounded-2xl flex items-center justify-center text-2xl shrink-0">
+                  📦
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-2">Ship Your Goods</h3>
+                  <p className="text-slate-400">Compare air, sea & rail freight. Track shipments in real-time from China to your door.</p>
+                </div>
               </div>
-              <div className="transform scale-[0.85] origin-top">
-                <PhoneMockup>
-                  <ShippingScreen />
-                </PhoneMockup>
+              {/* App Preview */}
+              <div className="bg-slate-950 rounded-2xl p-4 border border-slate-800">
+                <div className="flex items-center justify-between mb-4 px-2">
+                  <div className="text-center">
+                    <p className="text-slate-500 text-xs">From</p>
+                    <p className="text-white font-bold">Guangzhou</p>
+                  </div>
+                  <div className="flex-1 flex items-center justify-center px-4">
+                    <div className="h-0.5 flex-1 bg-slate-700" />
+                    <span className="mx-2">✈️</span>
+                    <div className="h-0.5 flex-1 bg-slate-700" />
+                  </div>
+                  <div className="text-center">
+                    <p className="text-slate-500 text-xs">To</p>
+                    <p className="text-white font-bold">Douala</p>
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  {[
+                    { name: 'Z-Express Air', method: '✈️', days: '5-7 days', price: '$4.50/kg', best: true },
+                    { name: 'Ocean Cargo Ltd', method: '🚢', days: '25-35 days', price: '$0.80/kg', best: false },
+                    { name: 'Rail Express', method: '🚂', days: '18-22 days', price: '$1.90/kg', best: false },
+                  ].map((s, i) => (
+                    <div key={i} className={`flex items-center justify-between p-3 rounded-xl ${s.best ? 'bg-blue-500/10 border border-blue-500/30' : 'bg-slate-900/50'}`}>
+                      <div className="flex items-center gap-3">
+                        <span className="text-xl">{s.method}</span>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <p className="text-white font-medium text-sm">{s.name}</p>
+                            {s.best && <span className="bg-blue-500 text-white text-[10px] px-2 py-0.5 rounded-full">BEST</span>}
+                          </div>
+                          <p className="text-slate-500 text-xs">{s.days}</p>
+                        </div>
+                      </div>
+                      <p className="text-white font-bold text-sm">{s.price}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             
             {/* Exchange */}
-            <div className="flex flex-col items-center">
-              <div className="mb-6 text-center">
-                <span className="text-4xl mb-3 block">💱</span>
-                <h3 className="text-xl font-bold text-white mb-2">Send Payments</h3>
-                <p className="text-slate-400 text-sm">Fast transfers to Chinese bank accounts</p>
+            <div className="bg-slate-900/50 border border-slate-800 rounded-3xl p-6 md:p-8">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="w-14 h-14 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 rounded-2xl flex items-center justify-center text-2xl shrink-0">
+                  💱
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-2">Send Payments</h3>
+                  <p className="text-slate-400">Transfer XAF, NGN, GHS to Chinese bank accounts, WeChat or AliPay. Best rates, fast delivery.</p>
+                </div>
               </div>
-              <div className="transform scale-[0.85] origin-top">
-                <PhoneMockup>
-                  <TransferScreen />
-                </PhoneMockup>
+              {/* App Preview */}
+              <div className="bg-slate-950 rounded-2xl p-4 border border-slate-800">
+                <div className="space-y-4">
+                  <div className="bg-slate-900/50 rounded-xl p-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-slate-400 text-sm">You send</span>
+                      <span className="bg-slate-800 px-3 py-1 rounded-lg text-white text-sm">🇨🇲 XAF</span>
+                    </div>
+                    <p className="text-white font-bold text-2xl">500,000</p>
+                  </div>
+                  <div className="flex justify-center">
+                    <div className="bg-blue-500 rounded-xl p-2">
+                      <ArrowRight className="w-4 h-4 text-white rotate-90" />
+                    </div>
+                  </div>
+                  <div className="bg-slate-900/50 rounded-xl p-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-slate-400 text-sm">They receive</span>
+                      <span className="bg-slate-800 px-3 py-1 rounded-lg text-white text-sm">🇨🇳 CNY</span>
+                    </div>
+                    <p className="text-white font-bold text-2xl">¥5,850.00</p>
+                  </div>
+                  <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-3 flex items-center gap-3">
+                    <Zap className="w-5 h-5 text-emerald-400" />
+                    <div>
+                      <p className="text-emerald-400 text-sm font-medium">Best rate • Arrives in ~15 min</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
