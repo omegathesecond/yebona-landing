@@ -5,27 +5,6 @@ import {
   ChevronRight, Sparkles, ArrowUpRight
 } from 'lucide-react'
 
-// Premium Tab Component
-function TabButton({ active, children, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`
-        relative px-8 py-4 text-lg font-semibold rounded-2xl transition-all duration-300
-        ${active 
-          ? 'bg-white text-slate-900 shadow-xl shadow-blue-500/20' 
-          : 'text-white/70 hover:text-white hover:bg-white/10'
-        }
-      `}
-    >
-      {children}
-      {active && (
-        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-1 bg-blue-500 rounded-full" />
-      )}
-    </button>
-  )
-}
-
 // Premium Phone Mockup
 function PhoneMockup({ children, className = "" }) {
   return (
@@ -360,7 +339,6 @@ export default function App() {
   const [phone, setPhone] = useState('')
   const [interest, setInterest] = useState('shipping')
   const [submitted, setSubmitted] = useState(false)
-  const [activeTab, setActiveTab] = useState('suppliers')
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -481,26 +459,10 @@ export default function App() {
               </div>
             </div>
             
-            {/* Right - Phone Mockup with Tabs */}
-            <div className="relative flex flex-col items-center">
-              {/* Tab Switcher */}
-              <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl p-2 mb-8 flex flex-wrap gap-2 justify-center">
-                <TabButton active={activeTab === 'suppliers'} onClick={() => setActiveTab('suppliers')}>
-                  🏭 Suppliers
-                </TabButton>
-                <TabButton active={activeTab === 'shipping'} onClick={() => setActiveTab('shipping')}>
-                  📦 Shipping
-                </TabButton>
-                <TabButton active={activeTab === 'exchange'} onClick={() => setActiveTab('exchange')}>
-                  💱 Exchange
-                </TabButton>
-              </div>
-              
-              {/* Phone */}
+            {/* Right - Phone Mockup (Exchange/Transfer) */}
+            <div className="relative flex justify-center">
               <PhoneMockup className="float-animation">
-                {activeTab === 'suppliers' && <SuppliersScreen />}
-                {activeTab === 'shipping' && <ShippingScreen />}
-                {activeTab === 'exchange' && <TransferScreen />}
+                <TransferScreen />
               </PhoneMockup>
             </div>
           </div>
@@ -528,8 +490,70 @@ export default function App() {
         </div>
       </section>
 
+      {/* App Services Showcase - Multiple Phone Mockups */}
+      <section className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+              One App,{' '}
+              <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                All Services
+              </span>
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Everything you need to import from China — right in your pocket.
+            </p>
+          </div>
+          
+          {/* Three Phone Mockups */}
+          <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
+            {/* Suppliers */}
+            <div className="flex flex-col items-center">
+              <div className="mb-6 text-center">
+                <span className="text-4xl mb-3 block">🏭</span>
+                <h3 className="text-xl font-bold text-white mb-2">Find Suppliers</h3>
+                <p className="text-slate-400 text-sm">Browse verified suppliers on Alibaba, 1688 & Yiwu</p>
+              </div>
+              <div className="transform scale-[0.85] origin-top">
+                <PhoneMockup>
+                  <SuppliersScreen />
+                </PhoneMockup>
+              </div>
+            </div>
+            
+            {/* Shipping */}
+            <div className="flex flex-col items-center">
+              <div className="mb-6 text-center">
+                <span className="text-4xl mb-3 block">📦</span>
+                <h3 className="text-xl font-bold text-white mb-2">Ship Your Goods</h3>
+                <p className="text-slate-400 text-sm">Compare air, sea & rail freight partners</p>
+              </div>
+              <div className="transform scale-[0.85] origin-top">
+                <PhoneMockup>
+                  <ShippingScreen />
+                </PhoneMockup>
+              </div>
+            </div>
+            
+            {/* Exchange */}
+            <div className="flex flex-col items-center">
+              <div className="mb-6 text-center">
+                <span className="text-4xl mb-3 block">💱</span>
+                <h3 className="text-xl font-bold text-white mb-2">Send Payments</h3>
+                <p className="text-slate-400 text-sm">Fast transfers to Chinese bank accounts</p>
+              </div>
+              <div className="transform scale-[0.85] origin-top">
+                <PhoneMockup>
+                  <TransferScreen />
+                </PhoneMockup>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features */}
-      <section id="features" className="py-24 px-6">
+      <section id="features" className="py-24 px-6 bg-slate-900/30">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
