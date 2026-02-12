@@ -6,7 +6,7 @@ import {
   Ship, BookOpen, Users, ArrowDown, Clock,
   Clipboard, UserCheck, BarChart3, Scale,
   CheckCircle2, Circle, ArrowDownCircle,
-  MessageSquare, Zap, Award, TrendingUp
+  MessageSquare, Zap, Award, TrendingUp, Languages
 } from 'lucide-react'
 
 // African countries for the picker
@@ -592,6 +592,7 @@ function ServiceSelectionMockup() {
     { icon: Search, name: 'Sourcing Agent', desc: 'Find products', color: 'from-blue-500 to-indigo-600' },
     { icon: Factory, name: 'Factory Verification', desc: 'Quality checks', color: 'from-purple-500 to-purple-600' },
     { icon: Ship, name: 'Freight & Shipping', desc: 'Sea, air, rail', color: 'from-orange-500 to-red-600' },
+    { icon: Languages, name: 'Translation', desc: 'Docs & calls', color: 'from-cyan-500 to-blue-600' },
   ]
   
   return (
@@ -669,6 +670,7 @@ export default function App() {
   const [phone, setPhone] = useState('')
   const [country, setCountry] = useState('CM')
   const [interest, setInterest] = useState('user')
+  const [serviceInterest, setServiceInterest] = useState([])
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -679,6 +681,7 @@ export default function App() {
     setPhone('')
     setCountry('CM')
     setInterest('user')
+    setServiceInterest([])
     setSubmitted(false)
   }
 
@@ -693,10 +696,11 @@ export default function App() {
         body: JSON.stringify({
           name,
           phone: selectedCountry?.prefix ? `${selectedCountry.prefix}${phone.replace(/^0+/, '')}` : phone,
-          interest,
+          interest: `${interest}${serviceInterest.length ? `:${serviceInterest.join(',')}` : ''}`,
           country: selectedCountry?.name || country,
           product: 'yebona',
-          source: 'website'
+          source: 'website',
+          notes: serviceInterest.length ? `Services: ${serviceInterest.join(', ')}` : null
         })
       })
       
@@ -1287,6 +1291,54 @@ export default function App() {
                       <span className={`block text-xs mt-0.5 ${interest === opt.value ? 'text-blue-100' : 'text-slate-500'}`}>{opt.desc}</span>
                     </button>
                   ))}
+                </div>
+              </div>
+              
+              <div className="bg-slate-900/30 border border-slate-800 rounded-xl p-4">
+                <p className="text-slate-400 text-sm mb-3">I'm interested in... <span className="text-slate-500">(select multiple)</span></p>
+                <div className="grid grid-cols-2 gap-2">
+                  {[
+                    { value: 'exchange', label: '💱 Currency Exchange' },
+                    { value: 'sourcing', label: '🔍 Sourcing Agents' },
+                    { value: 'verification', label: '✅ Factory Verification' },
+                    { value: 'freight', label: '🚢 Freight & Shipping' },
+                    { value: 'translation', label: '🌐 Translation Services' },
+                  ].map((opt) => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => {
+                        setServiceInterest(prev => 
+                          prev.includes(opt.value) 
+                            ? prev.filter(v => v !== opt.value)
+                            : [...prev, opt.value]
+                        )
+                      }}
+                      className={`px-3 py-2 rounded-lg text-sm font-medium transition-all text-left ${
+                        serviceInterest.includes(opt.value)
+                          ? 'bg-orange-500 text-white'
+                          : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const allServices = ['exchange', 'sourcing', 'verification', 'freight', 'translation']
+                      setServiceInterest(prev => 
+                        prev.length === allServices.length ? [] : allServices
+                      )
+                    }}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-all text-left col-span-2 ${
+                      serviceInterest.length === 5
+                        ? 'bg-orange-500 text-white'
+                        : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                    }`}
+                  >
+                    ✨ All Services
+                  </button>
                 </div>
               </div>
               
