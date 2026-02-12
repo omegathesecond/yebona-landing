@@ -342,6 +342,13 @@ export default function App() {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  const resetForm = () => {
+    setName('')
+    setPhone('')
+    setInterest('shipping')
+    setSubmitted(false)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
@@ -796,7 +803,13 @@ export default function App() {
                 <Check className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-3">You're on the list! 🎉</h3>
-              <p className="text-slate-400">We'll reach out on WhatsApp when Yebona launches.</p>
+              <p className="text-slate-400 mb-6">We'll reach out on WhatsApp when Yebona launches.</p>
+              <button
+                onClick={resetForm}
+                className="bg-white/10 hover:bg-white/20 border border-white/20 px-6 py-3 rounded-xl font-medium transition-all"
+              >
+                Submit Another Entry
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
