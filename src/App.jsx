@@ -256,14 +256,16 @@ function PartnersScreen() {
 
 // Main App
 export default function App() {
-  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [interest, setInterest] = useState('shipping')
   const [submitted, setSubmitted] = useState(false)
-  const [country, setCountry] = useState('cameroon')
   const [activeTab, setActiveTab] = useState('transfer')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log({ email, country })
+    // TODO: Send to backend
+    console.log({ name, phone, interest })
     setSubmitted(true)
   }
 
@@ -536,33 +538,56 @@ export default function App() {
                 <Check className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-2xl font-bold mb-3">You're on the list! 🎉</h3>
-              <p className="text-slate-400">We'll notify you as soon as Yebona launches in your country.</p>
+              <p className="text-slate-400">We'll reach out on WhatsApp when Yebona launches.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Name & Phone */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name"
                   required
                   className="flex-1 bg-slate-900/50 border border-slate-800 rounded-2xl px-6 py-4 text-white placeholder-slate-500 outline-none focus:border-blue-500 transition-colors text-lg"
                 />
-                <select
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                  className="bg-slate-900/50 border border-slate-800 rounded-2xl px-6 py-4 text-white outline-none focus:border-blue-500 transition-colors"
-                >
-                  <option value="cameroon">🇨🇲 Cameroon</option>
-                  <option value="nigeria">🇳🇬 Nigeria</option>
-                  <option value="ghana">🇬🇭 Ghana</option>
-                  <option value="kenya">🇰🇪 Kenya</option>
-                  <option value="senegal">🇸🇳 Senegal</option>
-                  <option value="eswatini">🇸🇿 Eswatini</option>
-                  <option value="other">🌍 Other</option>
-                </select>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="WhatsApp number"
+                  required
+                  className="flex-1 bg-slate-900/50 border border-slate-800 rounded-2xl px-6 py-4 text-white placeholder-slate-500 outline-none focus:border-blue-500 transition-colors text-lg"
+                />
               </div>
+              
+              {/* Interest Selection */}
+              <div className="bg-slate-900/30 border border-slate-800 rounded-2xl p-4">
+                <p className="text-slate-400 text-sm mb-3">What are you interested in?</p>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { value: 'shipping', label: '📦 Shipping', desc: 'Freight & logistics' },
+                    { value: 'exchange', label: '💱 Exchange', desc: 'Currency transfer' },
+                    { value: 'suppliers', label: '🏭 Suppliers', desc: 'Find products' },
+                    { value: 'all', label: '🌐 Everything', desc: 'Full package' },
+                  ].map((opt) => (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => setInterest(opt.value)}
+                      className={`px-5 py-3 rounded-xl font-medium transition-all ${
+                        interest === opt.value
+                          ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/30'
+                          : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-8 py-5 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-[1.02]"
@@ -570,7 +595,7 @@ export default function App() {
                 Join Waitlist
                 <ArrowRight className="w-5 h-5" />
               </button>
-              <p className="text-slate-500 text-sm">No spam. We'll only email you when we launch.</p>
+              <p className="text-slate-500 text-sm">We'll contact you on WhatsApp when we launch.</p>
             </form>
           )}
         </div>
