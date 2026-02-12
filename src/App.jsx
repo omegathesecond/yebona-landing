@@ -265,7 +265,7 @@ export default function App() {
               href="#waitlist" 
               className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-5 py-2 rounded-xl font-semibold transition-all shadow-lg shadow-blue-500/25"
             >
-              Join Waitlist
+              Get Early Access
             </a>
           </div>
         </div>
@@ -292,7 +292,7 @@ export default function App() {
               </h1>
               
               <p className="text-xl text-slate-300 mb-8 max-w-xl leading-relaxed">
-                Verified <strong className="text-white">currency exchangers</strong>, <strong className="text-white">sourcing agents</strong>, <strong className="text-white">freight services</strong>, and more — all in one marketplace. Compare providers, read real reviews, and transact with escrow protection.
+                A marketplace where <strong className="text-white">service providers list their services</strong> — currency exchange, sourcing, freight, and more. You compare, choose, and transact safely with escrow protection.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -312,8 +312,8 @@ export default function App() {
                   <span>Verified providers only</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
-                  <span>Real reviews</span>
+                  <Star className="w-5 h-5 text-amber-400" />
+                  <span>Reviews (coming soon)</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Shield className="w-5 h-5 text-emerald-400" />
@@ -384,13 +384,13 @@ export default function App() {
               <span className="text-sm text-emerald-300 font-medium">The Yebona Solution</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
-              A marketplace of{' '}
+              A platform where{' '}
               <span className="bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
-                verified providers
+                providers list their services
               </span>
             </h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Find trusted service providers for every step of your import journey — all with real reviews and escrow protection.
+              Service providers list what they offer. You browse, compare, and choose — all with verification and escrow protection.
             </p>
           </div>
           
@@ -445,7 +445,7 @@ export default function App() {
                 icon: Star,
                 iconBg: 'from-amber-500/20 to-amber-600/20',
                 iconColor: 'text-amber-400',
-                title: 'Real reviews from real users',
+                title: 'Reviews & ratings (coming soon)',
                 desc: 'Make informed decisions with verified reviews from people who actually used the service.'
               },
               {
@@ -563,11 +563,14 @@ export default function App() {
       <section id="waitlist" className="py-20 px-6 relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent" />
         <div className="max-w-xl mx-auto text-center relative z-10">
+          <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-2 mb-6">
+            <span className="text-sm text-blue-300 font-medium">🚀 Launching Soon</span>
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
-            Get early access
+            Get Early Access
           </h2>
           <p className="text-slate-400 text-lg mb-8">
-            Join the waitlist. We'll notify you when Yebona launches.
+            Be first in line when we launch. Whether you want to find providers or list your services.
           </p>
           
           {submitted ? (
@@ -622,25 +625,25 @@ export default function App() {
                 </div>
               </div>
               
-              <div className="bg-slate-900/30 border border-slate-800 rounded-xl p-3">
-                <p className="text-slate-500 text-xs mb-2">I want to...</p>
+              <div className="bg-slate-900/30 border border-slate-800 rounded-xl p-4">
+                <p className="text-slate-400 text-sm mb-3">I want early access to...</p>
                 <div className="flex gap-2">
                   {[
-                    { value: 'user', label: '🔍 Find providers' },
-                    { value: 'provider', label: '🏪 List my services' },
-                    { value: 'both', label: '🔄 Both' },
+                    { value: 'user', label: '🔍 Find providers', desc: 'Browse & compare' },
+                    { value: 'provider', label: '🏪 List my services', desc: 'Reach customers' },
                   ].map((opt) => (
                     <button
                       key={opt.value}
                       type="button"
                       onClick={() => setInterest(opt.value)}
-                      className={`px-4 py-2 rounded-lg font-medium transition-all flex-1 text-sm ${
+                      className={`px-4 py-3 rounded-xl font-medium transition-all flex-1 text-left ${
                         interest === opt.value
                           ? 'bg-blue-500 text-white'
-                          : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                          : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
                       }`}
                     >
-                      {opt.label}
+                      <span className="block text-sm font-semibold">{opt.label}</span>
+                      <span className={`block text-xs mt-0.5 ${interest === opt.value ? 'text-blue-100' : 'text-slate-500'}`}>{opt.desc}</span>
                     </button>
                   ))}
                 </div>
@@ -651,10 +654,10 @@ export default function App() {
                 disabled={isSubmitting}
                 className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-6 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 disabled:opacity-50"
               >
-                {isSubmitting ? 'Joining...' : 'Join Waitlist'}
+                {isSubmitting ? 'Joining...' : 'Get Early Access'}
                 {!isSubmitting && <ArrowRight className="w-5 h-5" />}
               </button>
-              <p className="text-slate-500 text-sm">We'll contact you on WhatsApp when we launch.</p>
+              <p className="text-slate-500 text-sm">We'll notify you on WhatsApp when we launch.</p>
             </form>
           )}
         </div>
