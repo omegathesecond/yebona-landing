@@ -347,7 +347,7 @@ export default function App() {
     setIsSubmitting(true)
     
     try {
-      const response = await fetch('https://ceo-dashboard-api-1026777738823.europe-west1.run.app/api/waitlist', {
+      const response = await fetch('https://yebona-api-igsg3gipka-ew.a.run.app/api/waitlist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
