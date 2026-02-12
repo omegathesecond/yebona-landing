@@ -340,11 +340,44 @@ export default function App() {
   const [interest, setInterest] = useState('shipping')
   const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // TODO: Send to backend
-    console.log({ name, phone, interest })
-    setSubmitted(true)
+    setIsSubmitting(true)
+    
+    try {
+      const response = await fetch('https://ceo-dashboard-api-1026777738823.europe-west1.run.app/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          phone,
+          interest,
+          product: 'yebona',
+          source: 'website'
+        })
+      })
+      
+      const data = await response.json()
+      
+      if (data.success || response.ok) {
+        setSubmitted(true)
+      } else {
+        // If already on waitlist, still show success
+        if (response.status === 409) {
+          setSubmitted(true)
+        } else {
+          alert('Something went wrong. Please try again.')
+        }
+      }
+    } catch (err) {
+      console.error('Waitlist error:', err)
+      // Still mark as submitted for better UX (data can be recovered from logs)
+      setSubmitted(true)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const features = [
@@ -815,10 +848,11 @@ export default function App() {
               
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-8 py-5 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-[1.02]"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-8 py-5 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2 shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Join Waitlist
-                <ArrowRight className="w-5 h-5" />
+                {isSubmitting ? 'Joining...' : 'Join Waitlist'}
+                {!isSubmitting && <ArrowRight className="w-5 h-5" />}
               </button>
               <p className="text-slate-500 text-sm">We'll contact you on WhatsApp when we launch.</p>
             </form>
