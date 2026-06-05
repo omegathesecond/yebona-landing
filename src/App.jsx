@@ -673,6 +673,7 @@ export default function App() {
   const [serviceInterest, setServiceInterest] = useState([])
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
   const selectedCountry = AFRICAN_COUNTRIES.find(c => c.code === country)
 
@@ -688,7 +689,8 @@ export default function App() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
+    setSubmitError('')
+
     try {
       const response = await fetch('https://yebona-api-igsg3gipka-ew.a.run.app/api/waitlist', {
         method: 'POST',
@@ -706,18 +708,15 @@ export default function App() {
       
       const data = await response.json()
       
-      if (data.success || response.ok) {
+      if (data.success || response.ok || response.status === 409) {
+        // 2xx success OR a 409 "already on the waitlist" conflict — both count as on the list.
         setSubmitted(true)
       } else {
-        if (response.status === 409) {
-          setSubmitted(true)
-        } else {
-          alert('Something went wrong. Please try again.')
-        }
+        setSubmitError("We couldn't add you to the waitlist. Please try again.")
       }
     } catch (err) {
       console.error('Waitlist error:', err)
-      setSubmitted(true)
+      setSubmitError("We couldn't reach our servers. Please check your connection and try again.")
     } finally {
       setIsSubmitting(false)
     }
@@ -1342,6 +1341,16 @@ export default function App() {
                 </div>
               </div>
               
+              {submitError && (
+                <div
+                  role="alert"
+                  className="flex items-start gap-2 bg-red-500/10 border border-red-500/50 rounded-xl px-4 py-3 text-red-300 text-sm"
+                >
+                  <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
+                  <span>{submitError}</span>
+                </div>
+              )}
+
               <button
                 type="submit"
                 disabled={isSubmitting}
