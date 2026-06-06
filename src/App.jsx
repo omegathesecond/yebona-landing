@@ -9,6 +9,7 @@ import {
   CheckCircle2, Circle, ArrowDownCircle,
   MessageSquare, Zap, Award, TrendingUp, Languages
 } from 'lucide-react'
+import { API_BASE } from './lib/api'
 
 // African countries for the picker
 const AFRICAN_COUNTRIES = [
@@ -693,7 +694,7 @@ export default function LandingPage() {
     setSubmitError('')
 
     try {
-      const response = await fetch('https://yebona-api-igsg3gipka-ew.a.run.app/api/waitlist', {
+      const response = await fetch(`${API_BASE}/api/waitlist`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

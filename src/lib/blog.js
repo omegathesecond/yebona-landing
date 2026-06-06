@@ -4,7 +4,7 @@
 // (featured_image, published_at, content) — NOT the camelCase the rest of the
 // Yebona API emits — so normalize here once and let the pages consume a clean VM.
 
-const API_BASE = 'https://api.yebona.com'
+import { API_BASE } from './api'
 
 // Map a raw blog row (snake_case) to a stable view-model the UI renders.
 function toPostVM(row) {
