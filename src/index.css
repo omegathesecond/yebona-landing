@@ -187,3 +187,78 @@ select:focus {
   opacity: 0.02;
   pointer-events: none;
 }
+
+/* ── Blog post body ──────────────────────────────────────────────
+   Styling for HTML rendered from the autoblogger (no @tailwindcss/typography
+   plugin in use, so the article markup is styled directly here). Scoped to
+   .blog-content set by src/pages/BlogPost.jsx. */
+.blog-content {
+  color: #cbd5e1; /* slate-300 */
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+.blog-content > * + * {
+  margin-top: 1.25rem;
+}
+.blog-content h1,
+.blog-content h2,
+.blog-content h3,
+.blog-content h4 {
+  color: #f8fafc; /* slate-50 */
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 2.25rem;
+}
+.blog-content h1 { font-size: 1.875rem; }
+.blog-content h2 { font-size: 1.5rem; }
+.blog-content h3 { font-size: 1.25rem; }
+.blog-content h4 { font-size: 1.125rem; }
+.blog-content p { color: #cbd5e1; }
+.blog-content a {
+  color: #60a5fa; /* blue-400 */
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.blog-content a:hover { color: #93c5fd; }
+.blog-content strong { color: #f1f5f9; font-weight: 600; }
+.blog-content ul,
+.blog-content ol {
+  padding-left: 1.5rem;
+}
+.blog-content ul { list-style: disc; }
+.blog-content ol { list-style: decimal; }
+.blog-content li { margin-top: 0.5rem; }
+.blog-content blockquote {
+  border-left: 3px solid #3b82f6; /* blue-500 */
+  padding-left: 1rem;
+  color: #94a3b8; /* slate-400 */
+  font-style: italic;
+}
+.blog-content img {
+  border-radius: 0.75rem;
+  border: 1px solid #1e293b; /* slate-800 */
+  max-width: 100%;
+  height: auto;
+}
+.blog-content code {
+  background: #1e293b;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.35rem;
+  font-size: 0.9em;
+}
+.blog-content pre {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  overflow-x: auto;
+}
+.blog-content pre code {
+  background: transparent;
+  padding: 0;
+}
+.blog-content hr {
+  border: none;
+  border-top: 1px solid #1e293b;
+  margin: 2rem 0;
+}

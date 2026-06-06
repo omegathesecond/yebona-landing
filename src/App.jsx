@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { 
+import { Link } from 'react-router-dom'
+import {
   ArrowRight, Globe, Shield, Check, Star, 
   ChevronRight, Search, AlertTriangle, 
   BadgeCheck, DollarSign, Package, Factory, 
@@ -665,7 +666,7 @@ function ServiceSelectionMockup() {
 }
 
 // Main App
-export default function App() {
+export default function LandingPage() {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
   const [country, setCountry] = useState('CM')
@@ -782,12 +783,17 @@ export default function App() {
               </div>
               <span className="text-xl font-bold tracking-tight">Yebona</span>
             </div>
-            <a 
-              href="#waitlist" 
-              className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-5 py-2 rounded-xl font-semibold transition-all shadow-lg shadow-blue-500/25"
-            >
-              Get the App
-            </a>
+            <div className="flex items-center gap-6">
+              <Link to="/blog" className="text-slate-300 hover:text-white font-medium transition-colors">
+                Blog
+              </Link>
+              <a
+                href="#waitlist"
+                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-5 py-2 rounded-xl font-semibold transition-all shadow-lg shadow-blue-500/25"
+              >
+                Get the App
+              </a>
+            </div>
           </div>
         </div>
       </nav>
