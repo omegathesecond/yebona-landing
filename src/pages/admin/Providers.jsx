@@ -33,6 +33,19 @@ const DOC_TYPE_LABELS = {
 
 const isImageUrl = (url) => /\.(jpe?g|png|webp|gif|heic)(\?|$)/i.test(url || '')
 
+// Only http(s) urls are safe to put in an href / img src. Document urls come
+// from a provider-controlled API field, so a hostile value like
+// `javascript:...` or a `data:` payload must never be rendered as a link in the
+// admin's session (stored XSS). Anything else is treated as not-viewable.
+const isSafeUrl = (url) => {
+  try {
+    const u = new URL(url, window.location.origin)
+    return u.protocol === 'https:' || u.protocol === 'http:'
+  } catch {
+    return false
+  }
+}
+
 // Renders a provider's submitted KYC documents as viewable links — image
 // thumbnails for photos, a labelled file tile for PDFs/other — so the operator
 // can actually inspect the identity/business proof before clicking Verify.
@@ -46,6 +59,27 @@ function VerificationDocuments({ documents }) {
       <div className="flex flex-wrap gap-2">
         {documents.map((doc, i) => {
           const label = DOC_TYPE_LABELS[doc.type] || doc.type || 'Document'
+          const safe = isSafeUrl(doc.url)
+
+          // A non-http(s) url is hostile/unusable — render an inert, labelled
+          // tile (no href, no img src) instead of a clickable XSS sink.
+          if (!safe) {
+            return (
+              <div
+                key={`${doc.url}-${i}`}
+                title="This document has an unsupported or unsafe link and cannot be opened."
+                className="flex w-24 flex-col items-center gap-1 rounded-md border border-red-200 bg-red-50 p-1.5 text-center"
+              >
+                <div className="flex h-16 w-full items-center justify-center rounded bg-red-100 text-red-400">
+                  <ShieldAlert className="h-7 w-7" />
+                </div>
+                <span className="line-clamp-2 text-[11px] font-medium leading-tight text-red-600">
+                  {label} (unsafe link)
+                </span>
+              </div>
+            )
+          }
+
           return (
             <a
               key={`${doc.url}-${i}`}
