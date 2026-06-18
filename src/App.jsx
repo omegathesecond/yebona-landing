@@ -625,39 +625,40 @@ function ServiceSelectionMockup() {
           ))}
         </div>
         
-        {/* Quick Stats */}
+        {/* Trust highlights — qualitative platform features, not fabricated volume metrics */}
         <div className="bg-slate-900/40 rounded-xl p-3 mb-4">
           <div className="flex items-center justify-between">
             <div className="text-center flex-1">
-              <p className="text-white font-bold text-lg">500+</p>
-              <p className="text-slate-500 text-[10px]">Verified Providers</p>
+              <BadgeCheck className="w-5 h-5 text-emerald-400 mx-auto mb-1" />
+              <p className="text-slate-300 text-[10px]">Verified Providers</p>
             </div>
             <div className="w-px h-8 bg-slate-700" />
             <div className="text-center flex-1">
-              <p className="text-white font-bold text-lg">10K+</p>
-              <p className="text-slate-500 text-[10px]">Transactions</p>
+              <Shield className="w-5 h-5 text-blue-400 mx-auto mb-1" />
+              <p className="text-slate-300 text-[10px]">Secure Escrow</p>
             </div>
             <div className="w-px h-8 bg-slate-700" />
             <div className="text-center flex-1">
-              <p className="text-white font-bold text-lg">4.8</p>
-              <p className="text-slate-500 text-[10px]">Avg Rating</p>
+              <Globe className="w-5 h-5 text-indigo-400 mx-auto mb-1" />
+              <p className="text-slate-300 text-[10px]">China ↔ Africa</p>
             </div>
           </div>
         </div>
-        
-        {/* Recent Activity */}
-        <p className="text-slate-400 text-xs mb-2">Recent successful transactions</p>
+
+        {/* How it works — illustrative steps, not real transaction data */}
+        <p className="text-slate-400 text-xs mb-2">How Yebona works</p>
         <div className="space-y-2">
           {[
-            { user: 'James K.', action: 'exchanged $2,000 → CNY', time: '2 min ago' },
-            { user: 'Sarah M.', action: 'shipped 500kg to Lagos', time: '15 min ago' },
+            { icon: Search, text: 'Pick a service & request a quote' },
+            { icon: Shield, text: 'Pay safely into escrow' },
+            { icon: Package, text: 'Provider delivers, funds release' },
           ].map((item, i) => (
             <div key={i} className="bg-slate-900/40 rounded-lg p-2.5 flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <div className="w-5 h-5 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 text-[10px] font-bold">{i + 1}</div>
               <div className="flex-1">
-                <p className="text-white text-xs"><span className="font-medium">{item.user}</span> {item.action}</p>
+                <p className="text-white text-xs">{item.text}</p>
               </div>
-              <span className="text-slate-500 text-[10px]">{item.time}</span>
+              <item.icon className="w-4 h-4 text-slate-500" />
             </div>
           ))}
         </div>
