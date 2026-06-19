@@ -2,7 +2,7 @@
 // operator approve (verify) or suspend each — the two actions that gate whether
 // a provider is visible in public search and can quote on RFQs.
 import { useState, useEffect, useCallback } from 'react'
-import { BadgeCheck, Ban, MapPin, Star, Loader2, Globe } from 'lucide-react'
+import { BadgeCheck, Ban, MapPin, Star, Loader2, Globe, FileText, ShieldAlert } from 'lucide-react'
 import { adminApi, ApiError } from '../../lib/adminApi'
 import { useToast } from '../../components/admin/Toast'
 import { Loading, ErrorState, Empty, PageHeader } from '../../components/admin/States'
@@ -18,6 +18,97 @@ const STATUS_BADGE = {
   pending: 'bg-amber-100 text-amber-800',
   active: 'bg-emerald-100 text-emerald-800',
   suspended: 'bg-red-100 text-red-800',
+}
+
+// Human labels for the KYC document types the app submits (mirrors the API's
+// VERIFICATION_DOCUMENT_TYPES). Falls back to the raw value if unknown.
+const DOC_TYPE_LABELS = {
+  national_id: 'National ID',
+  passport: 'Passport',
+  business_license: 'Business License',
+  tax_certificate: 'Tax Certificate',
+  proof_of_address: 'Proof of Address',
+  other: 'Other',
+}
+
+const isImageUrl = (url) => /\.(jpe?g|png|webp|gif|heic)(\?|$)/i.test(url || '')
+
+// Only http(s) urls are safe to put in an href / img src. Document urls come
+// from a provider-controlled API field, so a hostile value like
+// `javascript:...` or a `data:` payload must never be rendered as a link in the
+// admin's session (stored XSS). Anything else is treated as not-viewable.
+const isSafeUrl = (url) => {
+  try {
+    const u = new URL(url, window.location.origin)
+    return u.protocol === 'https:' || u.protocol === 'http:'
+  } catch {
+    return false
+  }
+}
+
+// Renders a provider's submitted KYC documents as viewable links — image
+// thumbnails for photos, a labelled file tile for PDFs/other — so the operator
+// can actually inspect the identity/business proof before clicking Verify.
+function VerificationDocuments({ documents }) {
+  return (
+    <div className="mt-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
+      <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-slate-600">
+        <ShieldAlert className="h-3.5 w-3.5" />
+        Verification documents ({documents.length})
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {documents.map((doc, i) => {
+          const label = DOC_TYPE_LABELS[doc.type] || doc.type || 'Document'
+          const safe = isSafeUrl(doc.url)
+
+          // A non-http(s) url is hostile/unusable — render an inert, labelled
+          // tile (no href, no img src) instead of a clickable XSS sink.
+          if (!safe) {
+            return (
+              <div
+                key={`${doc.url}-${i}`}
+                title="This document has an unsupported or unsafe link and cannot be opened."
+                className="flex w-24 flex-col items-center gap-1 rounded-md border border-red-200 bg-red-50 p-1.5 text-center"
+              >
+                <div className="flex h-16 w-full items-center justify-center rounded bg-red-100 text-red-400">
+                  <ShieldAlert className="h-7 w-7" />
+                </div>
+                <span className="line-clamp-2 text-[11px] font-medium leading-tight text-red-600">
+                  {label} (unsafe link)
+                </span>
+              </div>
+            )
+          }
+
+          return (
+            <a
+              key={`${doc.url}-${i}`}
+              href={doc.url}
+              target="_blank"
+              rel="noreferrer"
+              title={`${label} — open in new tab`}
+              className="group flex w-24 flex-col items-center gap-1 rounded-md border border-slate-200 bg-white p-1.5 text-center hover:border-blue-400 hover:shadow-sm"
+            >
+              {isImageUrl(doc.url) ? (
+                <img
+                  src={doc.url}
+                  alt={label}
+                  className="h-16 w-full rounded object-cover"
+                />
+              ) : (
+                <div className="flex h-16 w-full items-center justify-center rounded bg-slate-100 text-slate-400 group-hover:text-blue-500">
+                  <FileText className="h-7 w-7" />
+                </div>
+              )}
+              <span className="line-clamp-2 text-[11px] font-medium leading-tight text-slate-600">
+                {label}
+              </span>
+            </a>
+          )
+        })}
+      </div>
+    </div>
+  )
 }
 
 export default function Providers() {
@@ -166,6 +257,14 @@ export default function Providers() {
                     </span>
                   ))}
                 </div>
+              )}
+
+              {Array.isArray(p.verificationDocuments) && p.verificationDocuments.length > 0 ? (
+                <VerificationDocuments documents={p.verificationDocuments} />
+              ) : (
+                <p className="mt-3 text-xs italic text-slate-400">
+                  No verification documents submitted.
+                </p>
               )}
 
               <div className="mt-4 flex gap-2">
