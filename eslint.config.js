@@ -5,7 +5,10 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  // 'dist' build output; macOS AppleDouble resource-fork files (._*) and
+  // .DS_Store artifacts that appear when the repo is synced to a non-HFS
+  // filesystem — eslint would otherwise try to parse them and error out.
+  globalIgnores(['dist', '**/._*', '**/.DS_Store']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
