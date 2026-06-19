@@ -29,4 +29,12 @@ export default defineConfig([
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
   },
+  {
+    // Build-time config runs in Node (e.g. process.env, fetch in the sitemap
+    // plugin), so it needs Node globals rather than the browser set above.
+    files: ['vite.config.js'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
 ])

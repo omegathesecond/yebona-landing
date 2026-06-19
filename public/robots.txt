@@ -1,0 +1,9 @@
+# Yebona marketing site — crawler directives
+# Allow crawling of all public marketing/compliance pages; keep the private
+# admin area out of search indexes.
+
+User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://yebona.com/sitemap.xml
