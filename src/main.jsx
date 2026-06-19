@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LandingPage from './App.jsx'
 import BlogIndex from './pages/BlogIndex.jsx'
 import BlogPost from './pages/BlogPost.jsx'
+import Privacy from './pages/Privacy.jsx'
+import Terms from './pages/Terms.jsx'
 import AdminLayout from './components/admin/AdminLayout.jsx'
 import Providers from './pages/admin/Providers.jsx'
 import Disputes from './pages/admin/Disputes.jsx'
@@ -17,6 +19,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/" element={<LandingPage />} />
         <Route path="/blog" element={<BlogIndex />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
         {/* Admin operations dashboard — gated client-side by the dashboard API key. */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Providers />} />
