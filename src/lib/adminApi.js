@@ -94,4 +94,15 @@ export const adminApi = {
   listOwedPayouts: () => request('/api/admin/transactions/owed-payouts'),
   retryPayout: (id) =>
     request(`/api/admin/transactions/${id}/retry-payout`, { method: 'POST' }),
+
+  // ── Revenue / billing ──────────────────────────────────────────
+  // Realized platform fee revenue by currency over an optional date window.
+  // from/to are YYYY-MM-DD (inclusive); omit either side for an open bound.
+  getRevenue: ({ from, to } = {}) => {
+    const params = new URLSearchParams()
+    if (from) params.set('from', from)
+    if (to) params.set('to', to)
+    const qs = params.toString()
+    return request(`/api/admin/billing/revenue${qs ? `?${qs}` : ''}`)
+  },
 }

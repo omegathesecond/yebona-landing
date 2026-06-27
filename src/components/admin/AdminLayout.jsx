@@ -5,7 +5,7 @@
 // rejected up front instead of failing silently on every page.
 import { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { ShieldCheck, Users, Scale, Wallet, LogOut, KeyRound, Loader2 } from 'lucide-react'
+import { ShieldCheck, Users, Scale, Wallet, TrendingUp, LogOut, KeyRound, Loader2 } from 'lucide-react'
 import { adminApi, getApiKey, setApiKey, clearApiKey, ApiError } from '../../lib/adminApi'
 import { ToastProvider } from './Toast'
 
@@ -53,7 +53,7 @@ function SignIn({ onSignedIn }) {
           </div>
           <div>
             <h1 className="text-lg font-bold text-slate-900">Yebona Admin Ops</h1>
-            <p className="text-sm text-slate-500">Provider verification · disputes · payouts</p>
+            <p className="text-sm text-slate-500">Providers · disputes · payouts · revenue</p>
           </div>
         </div>
 
@@ -99,6 +99,7 @@ const NAV = [
   { to: '/admin', end: true, label: 'Providers', icon: Users },
   { to: '/admin/disputes', label: 'Disputes', icon: Scale },
   { to: '/admin/payouts', label: 'Owed payouts', icon: Wallet },
+  { to: '/admin/revenue', label: 'Revenue', icon: TrendingUp },
 ]
 
 export default function AdminLayout() {
