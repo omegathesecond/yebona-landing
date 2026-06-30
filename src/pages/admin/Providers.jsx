@@ -2,7 +2,20 @@
 // operator approve (verify) or suspend each — the two actions that gate whether
 // a provider is visible in public search and can quote on RFQs.
 import { useState, useEffect, useCallback } from 'react'
-import { BadgeCheck, Ban, MapPin, Star, Loader2, Globe, FileText, ShieldAlert } from 'lucide-react'
+import {
+  BadgeCheck,
+  Ban,
+  MapPin,
+  Star,
+  Loader2,
+  Globe,
+  FileText,
+  ShieldAlert,
+  Search,
+  X,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react'
 import { adminApi, ApiError } from '../../lib/adminApi'
 import { useToast } from '../../components/admin/Toast'
 import { Loading, ErrorState, Empty, PageHeader } from '../../components/admin/States'
@@ -13,6 +26,14 @@ const STATUSES = [
   { value: 'active', label: 'Active' },
   { value: 'suspended', label: 'Suspended' },
 ]
+
+// Server-side page size for the provider list. Kept modest so each page renders
+// fast; the operator pages through with Prev/Next rather than scrolling a wall.
+const PAGE_SIZE = 20
+
+// How long to wait after the operator stops typing before firing a search, so
+// we don't hit the API on every keystroke.
+const SEARCH_DEBOUNCE_MS = 300
 
 const STATUS_BADGE = {
   pending: 'bg-amber-100 text-amber-800',
@@ -114,17 +135,41 @@ function VerificationDocuments({ documents }) {
 export default function Providers() {
   const toast = useToast()
   const [status, setStatus] = useState('pending')
+  // Raw input value vs the debounced term we actually query with — typing
+  // updates `searchInput` immediately but only fires a request once it settles.
+  const [searchInput, setSearchInput] = useState('')
+  const [search, setSearch] = useState('')
+  const [page, setPage] = useState(0)
   const [providers, setProviders] = useState([])
+  const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [busyId, setBusyId] = useState(null)
+
+  // Debounce the search box: after the operator stops typing, commit the term
+  // (and jump back to the first page, since the old offset is meaningless for a
+  // new query).
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setSearch(searchInput)
+      setPage(0)
+    }, SEARCH_DEBOUNCE_MS)
+    return () => clearTimeout(id)
+  }, [searchInput])
 
   const load = useCallback(async () => {
     setLoading(true)
     setError('')
     try {
-      const res = await adminApi.listProviders(status)
+      const res = await adminApi.listProviders(status, {
+        search,
+        limit: PAGE_SIZE,
+        offset: page * PAGE_SIZE,
+      })
       setProviders(res.data || [])
+      // Fall back to the page length if the API ever omits total, so the count
+      // line and Next button still behave sanely.
+      setTotal(typeof res.total === 'number' ? res.total : (res.data || []).length)
     } catch (err) {
       const msg = err instanceof ApiError ? err.message : String(err)
       setError(msg)
@@ -132,11 +177,30 @@ export default function Providers() {
     } finally {
       setLoading(false)
     }
-  }, [status, toast])
+  }, [status, search, page, toast])
 
   useEffect(() => {
     load()
   }, [load])
+
+  // Switching status tab resets paging but keeps the search term — an operator
+  // hunting a provider by name often wants to check it across buckets.
+  const selectStatus = (value) => {
+    setStatus(value)
+    setPage(0)
+  }
+
+  const clearSearch = () => {
+    setSearchInput('')
+    setSearch('')
+    setPage(0)
+  }
+
+  const offset = page * PAGE_SIZE
+  const rangeStart = total === 0 ? 0 : offset + 1
+  const rangeEnd = offset + providers.length
+  const hasPrev = page > 0
+  const hasNext = rangeEnd < total
 
   const act = async (provider, action) => {
     setBusyId(provider.id)
@@ -156,8 +220,16 @@ export default function Providers() {
         await adminApi.suspendProvider(provider.id, reason.trim())
         toast.success(`Suspended ${provider.businessName || 'provider'}.`)
       }
-      // The provider no longer belongs in the current filter — drop it.
-      setProviders((list) => list.filter((p) => p.id !== provider.id))
+      // The provider no longer belongs in the current filter — drop it and
+      // shrink the total so the "X of N" count and Next button stay accurate.
+      const remaining = providers.filter((p) => p.id !== provider.id)
+      setProviders(remaining)
+      setTotal((t) => Math.max(0, t - 1))
+      // If we just emptied a non-first page, step back so the operator isn't
+      // stranded on a blank page (triggers a reload of the previous page).
+      if (remaining.length === 0 && page > 0) {
+        setPage((p) => Math.max(0, p - 1))
+      }
     } catch (err) {
       const msg = err instanceof ApiError ? err.message : String(err)
       toast.error(`Action failed: ${msg}`)
@@ -175,18 +247,42 @@ export default function Providers() {
         refreshing={loading}
       />
 
-      <div className="mb-4 inline-flex rounded-lg border border-slate-200 bg-white p-1">
-        {STATUSES.map((s) => (
-          <button
-            key={s.value}
-            onClick={() => setStatus(s.value)}
-            className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-              status === s.value ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
-            }`}
-          >
-            {s.label}
-          </button>
-        ))}
+      <div className="mb-4 flex flex-wrap items-center gap-3">
+        <div className="inline-flex rounded-lg border border-slate-200 bg-white p-1">
+          {STATUSES.map((s) => (
+            <button
+              key={s.value}
+              onClick={() => selectStatus(s.value)}
+              className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                status === s.value ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="relative min-w-0 flex-1 sm:max-w-xs">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <input
+            type="search"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            placeholder="Search name, email, phone, location…"
+            aria-label="Search providers"
+            className="w-full rounded-lg border border-slate-200 bg-white py-2 pl-9 pr-9 text-sm text-slate-700 placeholder:text-slate-400 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+          />
+          {searchInput && (
+            <button
+              type="button"
+              onClick={clearSearch}
+              aria-label="Clear search"
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
       </div>
 
       {loading ? (
@@ -194,7 +290,13 @@ export default function Providers() {
       ) : error ? (
         <ErrorState message={error} onRetry={load} />
       ) : providers.length === 0 ? (
-        <Empty message={`No ${status} providers.`} />
+        <Empty
+          message={
+            search.trim()
+              ? `No ${status} providers match “${search.trim()}”.`
+              : `No ${status} providers.`
+          }
+        />
       ) : (
         <div className="grid gap-3 md:grid-cols-2">
           {providers.map((p) => (
@@ -299,6 +401,36 @@ export default function Providers() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {!loading && !error && total > 0 && (
+        <div className="mt-4 flex items-center justify-between gap-3 text-sm text-slate-600">
+          <span>
+            Showing <span className="font-medium text-slate-900">{rangeStart}</span>–
+            <span className="font-medium text-slate-900">{rangeEnd}</span> of{' '}
+            <span className="font-medium text-slate-900">{total}</span>
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.max(0, p - 1))}
+              disabled={!hasPrev}
+              className="flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-1.5 font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <ChevronLeft className="h-4 w-4" />
+              Prev
+            </button>
+            <button
+              type="button"
+              onClick={() => setPage((p) => p + 1)}
+              disabled={!hasNext}
+              className="flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-3 py-1.5 font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Next
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       )}
     </div>

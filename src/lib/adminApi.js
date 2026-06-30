@@ -73,8 +73,19 @@ export const adminApi = {
   // on every page later.
   verifyKey: () => request('/api/admin/providers?status=pending&limit=1'),
 
-  listProviders: (status = 'pending') =>
-    request(`/api/admin/providers?status=${encodeURIComponent(status)}&limit=100`),
+  // Paginated, searchable provider list. `search` matches business name / bio /
+  // location and the linked user's name / email / phone (server-side). The
+  // response carries { data, total, limit, offset } so the caller can drive
+  // Prev/Next without guessing the total.
+  listProviders: (status = 'pending', { search = '', limit = 20, offset = 0 } = {}) => {
+    const params = new URLSearchParams({
+      status,
+      limit: String(limit),
+      offset: String(offset),
+    })
+    if (search.trim()) params.set('search', search.trim())
+    return request(`/api/admin/providers?${params.toString()}`)
+  },
   verifyProvider: (id) => request(`/api/admin/providers/${id}/verify`, { method: 'POST' }),
   suspendProvider: (id, reason) =>
     request(`/api/admin/providers/${id}/suspend`, {
