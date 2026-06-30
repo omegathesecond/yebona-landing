@@ -1,0 +1,7 @@
+# Yebona — https://yebona.com
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+
+Sitemap: https://yebona.com/sitemap.xml
