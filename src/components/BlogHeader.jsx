@@ -18,6 +18,9 @@ export default function BlogHeader() {
             <Link to="/blog" className="text-slate-300 hover:text-white font-medium transition-colors">
               Blog
             </Link>
+            <Link to="/contact" className="text-slate-300 hover:text-white font-medium transition-colors">
+              Contact
+            </Link>
             <Link
               to="/#waitlist"
               className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-5 py-2 rounded-xl font-semibold transition-all shadow-lg shadow-blue-500/25"
