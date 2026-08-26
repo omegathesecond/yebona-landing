@@ -21,6 +21,9 @@ export default function Footer() {
             <Link to="/blog" className="text-slate-400 hover:text-white transition-colors">
               Blog
             </Link>
+            <Link to="/contact" className="text-slate-400 hover:text-white transition-colors">
+              Contact
+            </Link>
             <Link to="/privacy" className="text-slate-400 hover:text-white transition-colors">
               Privacy Policy
             </Link>

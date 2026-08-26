@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import {
   ArrowRight, Globe, Shield, Check, Star, 
   ChevronRight, Search, AlertTriangle, 
@@ -10,6 +9,7 @@ import {
   MessageSquare, Zap, Award, TrendingUp, Languages
 } from 'lucide-react'
 import { API_BASE } from './lib/api'
+import SiteNav from './components/SiteNav'
 import Footer from './components/Footer'
 
 // African countries for the picker
@@ -775,30 +775,8 @@ export default function LandingPage() {
         <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-indigo-500/8 rounded-full blur-[150px]" />
       </div>
 
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-2xl border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-400 via-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
-                <Globe className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold tracking-tight">Yebona</span>
-            </div>
-            <div className="flex items-center gap-6">
-              <Link to="/blog" className="text-slate-300 hover:text-white font-medium transition-colors">
-                Blog
-              </Link>
-              <a
-                href="#waitlist"
-                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-5 py-2 rounded-xl font-semibold transition-all shadow-lg shadow-blue-500/25"
-              >
-                Get the App
-              </a>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <SiteNav waitlistHref="#waitlist" />
+
 
       {/* Hero Section - Clear Value Prop */}
       <section className="relative pt-28 pb-16 px-6">
