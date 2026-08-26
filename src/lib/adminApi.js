@@ -93,6 +93,32 @@ export const adminApi = {
       body: reason ? { reason } : undefined,
     }),
 
+  // ── End users (demand side) ────────────────────────────────────
+  // Paginated, searchable end-user list. `status` is 'all' | 'active' |
+  // 'suspended' — 'all' is the default because an operator chasing a report
+  // doesn't yet know which bucket the account is in. `search` matches name /
+  // email / phone / country / user id server-side. The response carries
+  // { data, total, limit, offset } so the caller can drive Prev/Next.
+  listUsers: (status = 'all', { search = '', limit = 20, offset = 0 } = {}) => {
+    const params = new URLSearchParams({
+      status,
+      limit: String(limit),
+      offset: String(offset),
+    })
+    if (search.trim()) params.set('search', search.trim())
+    return request(`/api/admin/users?${params.toString()}`)
+  },
+  suspendUser: (id, reason) =>
+    request(`/api/admin/users/${id}/suspend`, {
+      method: 'POST',
+      body: reason ? { reason } : undefined,
+    }),
+  reinstateUser: (id, reason) =>
+    request(`/api/admin/users/${id}/reinstate`, {
+      method: 'POST',
+      body: reason ? { reason } : undefined,
+    }),
+
   // ── Disputes ───────────────────────────────────────────────────
   listDisputes: () => request('/api/admin/transactions/disputes'),
   resolveDispute: (id, outcome, note) =>
