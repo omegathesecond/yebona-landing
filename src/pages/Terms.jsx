@@ -53,7 +53,9 @@ export default function Terms() {
           Payments on Yebona are processed through our payment provider, and funds
           for eligible transactions are held in escrow and released when agreed
           conditions are met. You agree to pay all amounts due for services you
-          request, including any applicable fees. Refunds, where applicable, are
+          request, including any applicable fees — see our{' '}
+          <a href="/pricing" className="text-blue-400 hover:underline">Pricing &amp; Fees</a>{' '}
+          page for the current fee structure. Refunds, where applicable, are
           handled under the escrow and dispute processes described in the
           Services. Yebona does not store full payment-card details.
         </p>

@@ -5,6 +5,7 @@ import { Globe, Menu, X } from 'lucide-react'
 // Secondary links that sit beside the CTA. Declared once so the desktop row and
 // the mobile dropdown can never drift apart.
 const NAV_LINKS = [
+  { to: '/pricing', label: 'Pricing' },
   { to: '/blog', label: 'Blog' },
   { to: '/contact', label: 'Contact' },
 ]
