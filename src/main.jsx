@@ -12,6 +12,7 @@ import AdminLayout from './components/admin/AdminLayout.jsx'
 import Providers from './pages/admin/Providers.jsx'
 import Disputes from './pages/admin/Disputes.jsx'
 import Payouts from './pages/admin/Payouts.jsx'
+import Reports from './pages/admin/Reports.jsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route index element={<Providers />} />
           <Route path="disputes" element={<Disputes />} />
           <Route path="payouts" element={<Payouts />} />
+          <Route path="reports" element={<Reports />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -110,4 +110,21 @@ export const adminApi = {
   listOwedPayouts: () => request('/api/admin/transactions/owed-payouts'),
   retryPayout: (id) =>
     request(`/api/admin/transactions/${id}/retry-payout`, { method: 'POST' }),
+
+  // ── Abuse reports (trust & safety moderation queue) ─────────────
+  // Reports filed via POST /api/users/:id/report (message/conversation/provider
+  // context) and POST /api/providers/reviews/:reviewId/report (review context).
+  listReports: (status = 'open', { contextType = '', limit = 20, offset = 0 } = {}) => {
+    const params = new URLSearchParams({ status, limit: String(limit), offset: String(offset) })
+    if (contextType) params.set('contextType', contextType)
+    return request(`/api/admin/reports?${params.toString()}`)
+  },
+  resolveReport: (id, status, note) =>
+    request(`/api/admin/reports/${id}/resolve`, {
+      method: 'POST',
+      body: note ? { status, note } : { status },
+    }),
+  // Review reports only — deletes the flagged review and recalculates the
+  // provider's rating server-side.
+  removeReportedContent: (id) => request(`/api/admin/reports/${id}/remove-content`, { method: 'POST' }),
 }
