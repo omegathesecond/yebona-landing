@@ -100,6 +100,11 @@ export const adminApi = {
       method: 'POST',
       body: note ? { outcome, note } : { outcome },
     }),
+  // The request/quote thread behind a disputed transaction — the request, every
+  // competing quote, and every transaction the request spawned (dispute state +
+  // evidence embedded) — so an operator can see how the dispute came to be.
+  getRequestThreadByTransaction: (transactionId) =>
+    request(`/api/admin/transactions/${transactionId}/thread`),
 
   // ── Owed payouts (reconciliation) ──────────────────────────────
   listOwedPayouts: () => request('/api/admin/transactions/owed-payouts'),
