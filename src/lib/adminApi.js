@@ -73,6 +73,9 @@ export const adminApi = {
   // on every page later.
   verifyKey: () => request('/api/admin/providers?status=pending&limit=1'),
 
+  // ── Dashboard overview ────────────────────────────────────────────
+  getOverview: () => request('/api/admin/stats'),
+
   // Paginated, searchable provider list. `search` matches business name / bio /
   // location and the linked user's name / email / phone (server-side). The
   // response carries { data, total, limit, offset } so the caller can drive
