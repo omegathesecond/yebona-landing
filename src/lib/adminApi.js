@@ -73,6 +73,9 @@ export const adminApi = {
   // on every page later.
   verifyKey: () => request('/api/admin/providers?status=pending&limit=1'),
 
+  // ── Dashboard overview ────────────────────────────────────────────
+  getOverview: () => request('/api/admin/stats'),
+
   // Paginated, searchable provider list. `search` matches business name / bio /
   // location and the linked user's name / email / phone (server-side). The
   // response carries { data, total, limit, offset } so the caller can drive
@@ -127,4 +130,16 @@ export const adminApi = {
   // Review reports only — deletes the flagged review and recalculates the
   // provider's rating server-side.
   removeReportedContent: (id) => request(`/api/admin/reports/${id}/remove-content`, { method: 'POST' }),
+  // ── Audit log ─────────────────────────────────────────────────
+  // Every privileged mutation (verify/suspend/dispute-resolve/payout-retry)
+  // writes an append-only row; this reads them back newest-first with
+  // optional filters. Response carries { data, total, limit, offset }.
+  listAuditLog: ({ targetType = '', targetId = '', action = '', actor = '', limit = 50, offset = 0 } = {}) => {
+    const params = new URLSearchParams({ limit: String(limit), offset: String(offset) })
+    if (targetType.trim()) params.set('targetType', targetType.trim())
+    if (targetId.trim()) params.set('targetId', targetId.trim())
+    if (action.trim()) params.set('action', action.trim())
+    if (actor.trim()) params.set('actor', actor.trim())
+    return request(`/api/admin/audit-log?${params.toString()}`)
+  },
 }
