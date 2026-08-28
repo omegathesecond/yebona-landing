@@ -1,7 +1,7 @@
 // Minimal toast system for the admin dashboard. A failure must always be VISIBLE
 // (CLAUDE.md: no silent fallbacks) — every caught ApiError is pushed here as an
 // error toast, every completed admin action as a success toast.
-import { createContext, useContext, useState, useCallback } from 'react'
+import { createContext, useContext, useState, useCallback, useMemo } from 'react'
 import { CheckCircle2, AlertTriangle, X } from 'lucide-react'
 
 const ToastContext = createContext(null)
@@ -33,10 +33,18 @@ export function ToastProvider({ children }) {
     [dismiss]
   )
 
-  const api = {
-    success: (message) => push('success', message),
-    error: (message) => push('error', message),
-  }
+  // Memoised: every admin page builds its `load` with useCallback(..., [toast])
+  // and fires it from useEffect(..., [load]). A fresh `api` object per render
+  // would change `toast`'s identity each time a toast is pushed or auto-dismissed,
+  // recreating `load` and refiring the fetch — which on a failing request becomes
+  // an unbounded loop (load fails -> error toast -> re-render -> load fails ...).
+  const api = useMemo(
+    () => ({
+      success: (message) => push('success', message),
+      error: (message) => push('error', message),
+    }),
+    [push]
+  )
 
   return (
     <ToastContext.Provider value={api}>
