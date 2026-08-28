@@ -120,13 +120,13 @@ export default function Reports() {
   }
 
   const triage = async (report, newStatus) => {
-    const note =
-      window.prompt(
-        `Optional note for ${newStatus === 'dismissed' ? 'dismissing' : 'resolving'} this report:`
-      ) ?? undefined
     // A cancelled prompt returns null; only abort on an explicit Cancel, not on
-    // an intentionally blank note (empty string is falsy but not null/undefined
-    // — window.prompt returns '' if the operator clears the field and hits OK).
+    // an intentionally blank note (window.prompt returns '' — falsy but not
+    // null — if the operator clears the field and hits OK). Do NOT coalesce the
+    // null away before this check, or Cancel would silently action the report.
+    const note = window.prompt(
+      `Optional note for ${newStatus === 'dismissed' ? 'dismissing' : 'resolving'} this report:`
+    )
     if (note === null) return
 
     setBusyId(`${report.id}:${newStatus}`)
