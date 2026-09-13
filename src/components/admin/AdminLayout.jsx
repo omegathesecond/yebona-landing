@@ -5,7 +5,7 @@
 // rejected up front instead of failing silently on every page.
 import { useState } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { ShieldCheck, LayoutDashboard, Users, Scale, Wallet, Flag, ScrollText, LogOut, KeyRound, Loader2 } from 'lucide-react'
+import { ShieldCheck, LayoutDashboard, Users, Scale, Wallet, Flag, ListChecks, ScrollText, LogOut, KeyRound, Loader2 } from 'lucide-react'
 import { adminApi, getApiKey, setApiKey, clearApiKey, ApiError } from '../../lib/adminApi'
 import { ToastProvider } from './Toast'
 
@@ -101,6 +101,7 @@ const NAV = [
   { to: '/admin/disputes', label: 'Disputes', icon: Scale },
   { to: '/admin/payouts', label: 'Owed payouts', icon: Wallet },
   { to: '/admin/reports', label: 'Reports', icon: Flag },
+  { to: '/admin/waitlist', label: 'Waitlist', icon: ListChecks },
   { to: '/admin/audit-log', label: 'Audit log', icon: ScrollText },
 ]
 

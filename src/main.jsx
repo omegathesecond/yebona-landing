@@ -14,6 +14,7 @@ import Providers from './pages/admin/Providers.jsx'
 import Disputes from './pages/admin/Disputes.jsx'
 import Payouts from './pages/admin/Payouts.jsx'
 import Reports from './pages/admin/Reports.jsx'
+import Waitlist from './pages/admin/Waitlist.jsx'
 import AuditLog from './pages/admin/AuditLog.jsx'
 import './index.css'
 
@@ -35,6 +36,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path="disputes" element={<Disputes />} />
           <Route path="payouts" element={<Payouts />} />
           <Route path="reports" element={<Reports />} />
+          <Route path="waitlist" element={<Waitlist />} />
           <Route path="audit-log" element={<AuditLog />} />
         </Route>
       </Routes>

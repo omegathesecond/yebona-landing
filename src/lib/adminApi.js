@@ -130,6 +130,24 @@ export const adminApi = {
   // Review reports only — deletes the flagged review and recalculates the
   // provider's rating server-side.
   removeReportedContent: (id) => request(`/api/admin/reports/${id}/remove-content`, { method: 'POST' }),
+  // ── Waitlist (pre-launch signups) ───────────────────────────────
+  // GET /api/waitlist is the same endpoint the public #waitlist form on the
+  // landing page posts to; here it's read/managed with the dashboard key.
+  // Response is { total, count, stats, entries } — stats is grouped by
+  // product + interest (db.waitlist.getStats()), not by status.
+  listWaitlist: ({ product = '', status = '', limit = 20, offset = 0 } = {}) => {
+    const params = new URLSearchParams({ limit: String(limit), offset: String(offset) })
+    if (product.trim()) params.set('product', product.trim())
+    if (status) params.set('status', status)
+    return request(`/api/waitlist?${params.toString()}`)
+  },
+  updateWaitlistEntry: (id, { status, notes } = {}) =>
+    request(`/api/waitlist/${id}`, {
+      method: 'PATCH',
+      body: notes !== undefined ? { status, notes } : { status },
+    }),
+  deleteWaitlistEntry: (id) => request(`/api/waitlist/${id}`, { method: 'DELETE' }),
+
   // ── Audit log ─────────────────────────────────────────────────
   // Every privileged mutation (verify/suspend/dispute-resolve/payout-retry)
   // writes an append-only row; this reads them back newest-first with
