@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Generated at build time by scripts/generate-sitemap.mjs (prebuild) — always
+# regenerated fresh from the live blog API, never a source of truth to commit.
+public/sitemap.xml
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
