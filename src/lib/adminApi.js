@@ -135,10 +135,11 @@ export const adminApi = {
   // landing page posts to; here it's read/managed with the dashboard key.
   // Response is { total, count, stats, entries } — stats is grouped by
   // product + interest (db.waitlist.getStats()), not by status.
-  listWaitlist: ({ product = '', status = '', limit = 20, offset = 0 } = {}) => {
+  listWaitlist: ({ product = '', status = '', interest = '', limit = 20, offset = 0 } = {}) => {
     const params = new URLSearchParams({ limit: String(limit), offset: String(offset) })
     if (product.trim()) params.set('product', product.trim())
     if (status) params.set('status', status)
+    if (interest.trim()) params.set('interest', interest.trim())
     return request(`/api/waitlist?${params.toString()}`)
   },
   updateWaitlistEntry: (id, { status, notes } = {}) =>

@@ -33,6 +33,7 @@ export default function Waitlist() {
   const toast = useToast()
   const [status, setStatus] = useState('')
   const [product, setProduct] = useState('')
+  const [interest, setInterest] = useState('')
   const [offset, setOffset] = useState(0)
   const [entries, setEntries] = useState([])
   const [total, setTotal] = useState(0)
@@ -46,7 +47,7 @@ export default function Waitlist() {
       setLoading(true)
       setError('')
       try {
-        const res = await adminApi.listWaitlist({ product, status, limit: PAGE_SIZE, offset: nextOffset })
+        const res = await adminApi.listWaitlist({ product, status, interest, limit: PAGE_SIZE, offset: nextOffset })
         setEntries(res.entries || [])
         setTotal(typeof res.total === 'number' ? res.total : (res.entries || []).length)
         setStats(res.stats || {})
@@ -60,14 +61,14 @@ export default function Waitlist() {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [product, status, toast]
+    [product, status, interest, toast]
   )
 
   // Refetch from the top whenever a filter changes; page nav calls load() directly.
   useEffect(() => {
     load(0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product, status])
+  }, [product, status, interest])
 
   const updateStatus = async (entry, newStatus) => {
     if (newStatus === entry.status) return
@@ -155,6 +156,13 @@ export default function Waitlist() {
           onChange={(e) => setProduct(e.target.value)}
           placeholder="Filter by product…"
           aria-label="Filter by product"
+          className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 placeholder:text-slate-400 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
+        />
+        <input
+          value={interest}
+          onChange={(e) => setInterest(e.target.value)}
+          placeholder="Filter by interest…"
+          aria-label="Filter by interest"
           className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 placeholder:text-slate-400 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400"
         />
       </div>
