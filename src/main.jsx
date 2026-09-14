@@ -10,6 +10,8 @@ import Contact from './pages/Contact.jsx'
 import Pricing from './pages/Pricing.jsx'
 import AdminLayout from './components/admin/AdminLayout.jsx'
 import Overview from './pages/admin/Overview.jsx'
+import Users from './pages/admin/Users.jsx'
+import UserDetail from './pages/admin/UserDetail.jsx'
 import Providers from './pages/admin/Providers.jsx'
 import Disputes from './pages/admin/Disputes.jsx'
 import Payouts from './pages/admin/Payouts.jsx'
@@ -32,6 +34,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         {/* Admin operations dashboard — gated client-side by the dashboard API key. */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Overview />} />
+          <Route path="users" element={<Users />} />
+          <Route path="users/:id" element={<UserDetail />} />
           <Route path="providers" element={<Providers />} />
           <Route path="disputes" element={<Disputes />} />
           <Route path="payouts" element={<Payouts />} />
