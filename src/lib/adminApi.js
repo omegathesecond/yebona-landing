@@ -108,6 +108,24 @@ export const adminApi = {
   // evidence embedded) — so an operator can see how the dispute came to be.
   getRequestThreadByTransaction: (transactionId) =>
     request(`/api/admin/transactions/${transactionId}/thread`),
+  // Same thread view, entered from the request side (a user's request list has
+  // a request id but not necessarily a transaction id — e.g. a request that
+  // never got a quote accepted).
+  getRequestThread: (requestId) => request(`/api/admin/requests/${requestId}/thread`),
+
+  // ── User lookup ────────────────────────────────────────────────
+  // Free-text search by phone number or name; `userType` narrows to
+  // buyers/providers/both. Response carries { data, total, limit, offset }.
+  searchUsers: (q, { userType = '', limit = 20, offset = 0 } = {}) => {
+    const params = new URLSearchParams({ q, limit: String(limit), offset: String(offset) })
+    if (userType) params.set('userType', userType)
+    return request(`/api/admin/users?${params.toString()}`)
+  },
+  getUser: (id) => request(`/api/admin/users/${id}`),
+  getUserRequests: (id, { limit = 50, offset = 0 } = {}) =>
+    request(`/api/admin/users/${id}/requests?limit=${limit}&offset=${offset}`),
+  getUserTransactions: (id, { limit = 50, offset = 0 } = {}) =>
+    request(`/api/admin/users/${id}/transactions?limit=${limit}&offset=${offset}`),
 
   // ── Owed payouts (reconciliation) ──────────────────────────────
   listOwedPayouts: () => request('/api/admin/transactions/owed-payouts'),
