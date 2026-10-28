@@ -65,6 +65,14 @@ async function request(path, { method = 'GET', body } = {}) {
   return json
 }
 
+export async function readAdminDocument(providerId, id) {
+  const result = await request(`/api/admin/providers/${encodeURIComponent(providerId)}/verification-files/${encodeURIComponent(id)}`)
+  const { contentType, base64 } = result.data || {}
+  if (!base64 || !contentType) throw new Error('Document read returned no file')
+  const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0))
+  return URL.createObjectURL(new Blob([bytes], { type: contentType }))
+}
+
 // ── Provider verification queue ──────────────────────────────────
 export const adminApi = {
   // Validate a candidate key by making a real authenticated call. Returns on
