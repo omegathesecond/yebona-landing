@@ -13,7 +13,7 @@ const config={
  async getItem(slug:string,json:any){const result=await json('https://api.yebona.com/api/blog/posts/'+encodeURIComponent(slug),{missing:true});if(result===null)return null;if(result.data?.slug!==slug||typeof result.data.content!=='string'||!result.data.content.trim())throw new DiscoveryError('The article content is unavailable');return result.data;}
 };
 export const onRequest=async(context:any)=>{
- const response=await handleDiscovery(context.request,()=>context.env.ASSETS.fetch(new Request(new URL('/',context.request.url))),config);
+ const response=await handleDiscovery(context.request,()=>context.env.ASSETS.fetch(new Request(new URL('/discovery-shell',context.request.url))),config);
  if(response)return context.request.method==='HEAD'?new Response(null,response):response;
  return (await clientPage(context.request,context.env.ASSETS,clientRoutes))||context.next();
 };

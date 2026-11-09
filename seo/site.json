@@ -13,5 +13,6 @@
     "/admin/*"
   ],
   "accent": "#b54c15",
-  "clientMiddleware": true
+  "clientMiddleware": true,
+  "discoveryShell": "discovery-shell.html"
 }
