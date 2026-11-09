@@ -1,0 +1,495 @@
+{
+  "id": "yebona",
+  "name": "Yebona",
+  "canonical_host": "yebona.com",
+  "audience": "Businesses preparing China\u2013Africa sourcing or import-service requests.",
+  "cta": {
+    "label": "Discuss your sourcing needs",
+    "url": "https://yebona.com/#waitlist"
+  },
+  "sources": [
+    {
+      "path": "companies/yebona/api/src/routes/providers.ts",
+      "lines": [
+        3,
+        4,
+        9,
+        10,
+        11,
+        15,
+        21,
+        22,
+        23,
+        24,
+        31,
+        32,
+        35,
+        36
+      ],
+      "supports": [
+        "getProviders",
+        "getProvider",
+        "portfolio",
+        "reviews"
+      ]
+    },
+    {
+      "path": "companies/yebona/api/src/controllers/providerController.ts",
+      "lines": [
+        23,
+        38,
+        99,
+        137,
+        198,
+        210,
+        302,
+        350
+      ],
+      "supports": [
+        "category, country",
+        "providerServices",
+        "recentReviews"
+      ]
+    },
+    {
+      "path": "companies/yebona/landing/src/App.jsx",
+      "lines": [
+        597,
+        698,
+        715,
+        718,
+        721,
+        738,
+        750,
+        778,
+        807,
+        1192,
+        1193,
+        1259,
+        1287,
+        1289,
+        1345
+      ],
+      "supports": [
+        "Sourcing Agents",
+        "Freight & Shipping",
+        "waitlist",
+        "early access"
+      ],
+      "reviewed_current_path": "/Users/lasliegeorgesjr/Documents/ChatGPT/YeboPay/seo-release-20261109/repos/yebona/src/App.jsx",
+      "reviewed_current_lines": [
+        597,
+        698,
+        715,
+        718,
+        721,
+        738,
+        750,
+        778,
+        807,
+        1192,
+        1193,
+        1259,
+        1287,
+        1289,
+        1345
+      ]
+    }
+  ],
+  "features": [
+    {
+      "slug": "sourcing-providers",
+      "title": "China sourcing service providers | Yebona",
+      "description": "Explore Yebona\u2019s sourcing-provider workflow and request access for your China\u2013Africa trade needs.",
+      "headline": "Start the sourcing conversation with the requirement.",
+      "intro": "A sourcing request becomes easier to discuss when the product, quantity and requirements are clear. Yebona is being presented around finding providers for the work behind China\u2013Africa trade.\n\nThe provider workflow includes service categories and provider records. Use those records to understand who offers the relevant service, then confirm the scope directly before making a commercial commitment. The public site currently invites early-access requests.",
+      "paragraphs": [
+        "A sourcing request becomes easier to discuss when the product, quantity and requirements are clear. Yebona is being presented around finding providers for the work behind China\u2013Africa trade.",
+        "The provider workflow includes service categories and provider records. Use those records to understand who offers the relevant service, then confirm the scope directly before making a commercial commitment. The public site currently invites early-access requests."
+      ],
+      "audience": "Businesses preparing China\u2013Africa sourcing or import-service requests.",
+      "benefits": [
+        {
+          "title": "Describe the requirement",
+          "body": "Specify the product or service you need and what matters to the order. A clear requirement gives a prospective provider something concrete to respond to."
+        },
+        {
+          "title": "Review the provider record",
+          "body": "Inspect the service category and the information available about the provider. A listing is a starting point for due diligence."
+        },
+        {
+          "title": "Confirm the scope",
+          "body": "Discuss what is included, what evidence will be supplied and what remains your responsibility before agreeing to proceed."
+        }
+      ],
+      "steps": [
+        "Prepare the sourcing requirement.",
+        "Request access through Yebona.",
+        "Review available provider information.",
+        "Confirm the proposed service and terms."
+      ],
+      "limitations": "Provider availability and commercial terms must be confirmed. Do not infer that every category, supplier or transaction service is currently open for immediate use.",
+      "example": "An importer seeking a sourcing agent can describe the intended goods and the checks needed, then use that brief when discussing a possible engagement.",
+      "cta": {
+        "label": "Discuss your sourcing needs",
+        "url": "https://yebona.com/#waitlist"
+      },
+      "sources": [
+        {
+          "path": "companies/yebona/api/src/routes/providers.ts",
+          "lines": [
+            3,
+            4,
+            9,
+            10,
+            11,
+            15,
+            21,
+            22,
+            23,
+            24,
+            31,
+            32,
+            35,
+            36
+          ],
+          "supports": [
+            "getProviders",
+            "getProvider",
+            "portfolio",
+            "reviews"
+          ]
+        },
+        {
+          "path": "companies/yebona/api/src/controllers/providerController.ts",
+          "lines": [
+            23,
+            38,
+            99,
+            137,
+            198,
+            210,
+            302,
+            350
+          ],
+          "supports": [
+            "category, country",
+            "providerServices",
+            "recentReviews"
+          ]
+        },
+        {
+          "path": "companies/yebona/landing/src/App.jsx",
+          "lines": [
+            597,
+            698,
+            715,
+            718,
+            721,
+            738,
+            750,
+            778,
+            807,
+            1192,
+            1193,
+            1259,
+            1287,
+            1289,
+            1345
+          ],
+          "supports": [
+            "Sourcing Agents",
+            "Freight & Shipping",
+            "waitlist",
+            "early access"
+          ],
+          "reviewed_current_path": "/Users/lasliegeorgesjr/Documents/ChatGPT/YeboPay/seo-release-20261109/repos/yebona/src/App.jsx",
+          "reviewed_current_lines": [
+            597,
+            698,
+            715,
+            718,
+            721,
+            738,
+            750,
+            778,
+            807,
+            1192,
+            1193,
+            1259,
+            1287,
+            1289,
+            1345
+          ]
+        }
+      ],
+      "availability": "Early-access marketing; request access and confirm provider/service availability before a transaction.",
+      "path": "/features/sourcing-providers",
+      "word_count": 228
+    },
+    {
+      "slug": "provider-comparison",
+      "title": "Import-service provider profiles | Yebona",
+      "description": "Review provider categories, services and available portfolio information in Yebona\u2019s trade-services workflow.",
+      "headline": "Compare the service before choosing the provider.",
+      "intro": "Two providers in the same category may offer different work. Comparing the scope is more useful than choosing from a name alone.\n\nYebona\u2019s provider model includes services, portfolio information and review records. Use the information that is actually present, ask about missing details and confirm whether the provider can deliver the required work for your situation.",
+      "paragraphs": [
+        "Two providers in the same category may offer different work. Comparing the scope is more useful than choosing from a name alone.",
+        "Yebona\u2019s provider model includes services, portfolio information and review records. Use the information that is actually present, ask about missing details and confirm whether the provider can deliver the required work for your situation."
+      ],
+      "audience": "Businesses preparing China\u2013Africa sourcing or import-service requests.",
+      "benefits": [
+        {
+          "title": "Look at the offered service",
+          "body": "Check the provider\u2019s listed category and service details. Make sure they match the particular import task rather than a broadly similar label."
+        },
+        {
+          "title": "Inspect supporting information",
+          "body": "Review available portfolio and feedback records, while distinguishing supplied evidence from claims that still need checking."
+        },
+        {
+          "title": "Ask specific questions",
+          "body": "Clarify the deliverables, timing, charges and exceptions before selecting a provider. Keep the final agreed scope in your own commercial records."
+        }
+      ],
+      "steps": [
+        "Identify the needed service category.",
+        "Review the available provider profile.",
+        "Check the supporting information.",
+        "Confirm details directly before engagement."
+      ],
+      "limitations": "Reviews and portfolio records may be incomplete or unavailable. A profile does not guarantee quality, availability or successful delivery.",
+      "example": "For a factory-inspection request, ask what the inspection includes and what report will be supplied. Compare those answers before deciding who to engage.",
+      "cta": {
+        "label": "Discuss your sourcing needs",
+        "url": "https://yebona.com/#waitlist"
+      },
+      "sources": [
+        {
+          "path": "companies/yebona/api/src/routes/providers.ts",
+          "lines": [
+            3,
+            4,
+            9,
+            10,
+            11,
+            15,
+            21,
+            22,
+            23,
+            24,
+            31,
+            32,
+            35,
+            36
+          ],
+          "supports": [
+            "getProviders",
+            "getProvider",
+            "portfolio",
+            "reviews"
+          ]
+        },
+        {
+          "path": "companies/yebona/api/src/controllers/providerController.ts",
+          "lines": [
+            23,
+            38,
+            99,
+            137,
+            198,
+            210,
+            302,
+            350
+          ],
+          "supports": [
+            "category, country",
+            "providerServices",
+            "recentReviews"
+          ]
+        },
+        {
+          "path": "companies/yebona/landing/src/App.jsx",
+          "lines": [
+            597,
+            698,
+            715,
+            718,
+            721,
+            738,
+            750,
+            778,
+            807,
+            1192,
+            1193,
+            1259,
+            1287,
+            1289,
+            1345
+          ],
+          "supports": [
+            "Sourcing Agents",
+            "Freight & Shipping",
+            "waitlist",
+            "early access"
+          ],
+          "reviewed_current_path": "/Users/lasliegeorgesjr/Documents/ChatGPT/YeboPay/seo-release-20261109/repos/yebona/src/App.jsx",
+          "reviewed_current_lines": [
+            597,
+            698,
+            715,
+            718,
+            721,
+            738,
+            750,
+            778,
+            807,
+            1192,
+            1193,
+            1259,
+            1287,
+            1289,
+            1345
+          ]
+        }
+      ],
+      "availability": "Early-access marketing; request access and confirm provider/service availability before a transaction.",
+      "path": "/features/provider-comparison",
+      "word_count": 211
+    },
+    {
+      "slug": "freight-service-planning",
+      "title": "Freight and import-service planning | Yebona",
+      "description": "Prepare a freight-service requirement and explore Yebona\u2019s China\u2013Africa trade-provider workflow.",
+      "headline": "Define the shipment before asking for the service.",
+      "intro": "Freight arrangements depend on the shipment, route and work required at each end. A clear brief makes it easier to compare a provider\u2019s proposal and identify what is missing.\n\nYebona\u2019s public service categories include freight and shipping alongside sourcing and other trade support. Use the early-access conversation to explain the actual requirement and confirm which providers or services are available.",
+      "paragraphs": [
+        "Freight arrangements depend on the shipment, route and work required at each end. A clear brief makes it easier to compare a provider\u2019s proposal and identify what is missing.",
+        "Yebona\u2019s public service categories include freight and shipping alongside sourcing and other trade support. Use the early-access conversation to explain the actual requirement and confirm which providers or services are available."
+      ],
+      "audience": "Businesses preparing China\u2013Africa sourcing or import-service requests.",
+      "benefits": [
+        {
+          "title": "Describe the shipment",
+          "body": "Prepare the goods description, origin, destination and handling requirements you know. Mark unknown details for confirmation instead of guessing them."
+        },
+        {
+          "title": "Clarify the service boundary",
+          "body": "Ask what the provider handles and what remains outside the quotation. Keep transport, customs and local delivery responsibilities explicit."
+        },
+        {
+          "title": "Review before committing",
+          "body": "Compare the actual proposal and supporting terms. A visible category does not itself establish a booked shipment or confirmed price."
+        }
+      ],
+      "steps": [
+        "Prepare the shipment requirement.",
+        "Request the relevant service access.",
+        "Discuss scope with available providers.",
+        "Review the proposed responsibilities and terms."
+      ],
+      "limitations": "Shipping routes, quotations, customs requirements and service availability must be confirmed for the shipment. No delivery-time or customs-clearance guarantee is implied.",
+      "example": "A business preparing a shipment can use a written brief to ask which part of the route a provider covers and which charges remain separate.",
+      "cta": {
+        "label": "Discuss your sourcing needs",
+        "url": "https://yebona.com/#waitlist"
+      },
+      "sources": [
+        {
+          "path": "companies/yebona/api/src/routes/providers.ts",
+          "lines": [
+            3,
+            4,
+            9,
+            10,
+            11,
+            15,
+            21,
+            22,
+            23,
+            24,
+            31,
+            32,
+            35,
+            36
+          ],
+          "supports": [
+            "getProviders",
+            "getProvider",
+            "portfolio",
+            "reviews"
+          ]
+        },
+        {
+          "path": "companies/yebona/api/src/controllers/providerController.ts",
+          "lines": [
+            23,
+            38,
+            99,
+            137,
+            198,
+            210,
+            302,
+            350
+          ],
+          "supports": [
+            "category, country",
+            "providerServices",
+            "recentReviews"
+          ]
+        },
+        {
+          "path": "companies/yebona/landing/src/App.jsx",
+          "lines": [
+            597,
+            698,
+            715,
+            718,
+            721,
+            738,
+            750,
+            778,
+            807,
+            1192,
+            1193,
+            1259,
+            1287,
+            1289,
+            1345
+          ],
+          "supports": [
+            "Sourcing Agents",
+            "Freight & Shipping",
+            "waitlist",
+            "early access"
+          ],
+          "reviewed_current_path": "/Users/lasliegeorgesjr/Documents/ChatGPT/YeboPay/seo-release-20261109/repos/yebona/src/App.jsx",
+          "reviewed_current_lines": [
+            597,
+            698,
+            715,
+            718,
+            721,
+            738,
+            750,
+            778,
+            807,
+            1192,
+            1193,
+            1259,
+            1287,
+            1289,
+            1345
+          ]
+        }
+      ],
+      "availability": "Early-access marketing; request access and confirm provider/service availability before a transaction.",
+      "path": "/features/freight-service-planning",
+      "word_count": 219
+    }
+  ],
+  "availability": "Early-access marketing; request access and confirm provider/service availability before a transaction.",
+  "theme": {
+    "accent": "#b54c15"
+  }
+}

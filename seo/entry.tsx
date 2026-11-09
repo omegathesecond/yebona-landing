@@ -1,0 +1,3 @@
+import React from 'react';import {renderToString} from 'react-dom/server';import {StaticRouter} from 'react-router-dom';
+import Home from '../src/App.jsx';import Privacy from '../src/pages/Privacy.jsx';import Terms from '../src/pages/Terms.jsx';import Contact from '../src/pages/Contact.jsx';import Pricing from '../src/pages/Pricing.jsx';const pages={'/':Home,'/privacy':Privacy,'/terms':Terms,'/contact':Contact,'/pricing':Pricing};const page=(path)=>{const Page=pages[path];if(!Page)throw new Error('Unknown public page');return <Page/>};
+export const render=(path)=>renderToString(<StaticRouter location={path}>{page(path)}</StaticRouter>);

@@ -26,3 +26,10 @@ public/sitemap.xml
 *.njsproj
 *.sln
 *.sw?
+
+seo/public-product.json
+dist-seo/
+
+seo/client-routes.json
+
+.wrangler/

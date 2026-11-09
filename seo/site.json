@@ -1,0 +1,17 @@
+{
+  "host": "yebona.com",
+  "render": "yebona",
+  "public": [
+    "/",
+    "/privacy",
+    "/terms",
+    "/contact",
+    "/pricing"
+  ],
+  "client": [
+    "/admin",
+    "/admin/*"
+  ],
+  "accent": "#b54c15",
+  "clientMiddleware": true
+}

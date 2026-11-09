@@ -6,22 +6,7 @@
 
 import { API_BASE } from './api'
 
-// Map a raw blog row (snake_case) to a stable view-model the UI renders.
-function toPostVM(row) {
-  if (!row) return null
-  return {
-    id: row.id,
-    title: row.title || 'Untitled',
-    slug: row.slug,
-    excerpt: row.excerpt || '',
-    content: row.content || '', // only present on the single-post endpoint
-    category: row.category || null,
-    tags: Array.isArray(row.tags) ? row.tags : [],
-    author: row.author || 'Yebona',
-    image: row.featured_image || null,
-    publishedAt: row.published_at || row.created_at || null,
-  }
-}
+import { toPostVM } from './blogPost';
 
 // Shared fetch wrapper. Throws loudly on any non-OK response or transport error
 // so callers can surface a real error state — never a silent fake-success.

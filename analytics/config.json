@@ -1,0 +1,25 @@
+{
+  "measurementId": "G-B6W7E9SHK4",
+  "product": "yebona",
+  "surface": "landing",
+  "hosts": [
+    "yebona-landing.pages.dev",
+    "www.yebona.com",
+    "yebona.com"
+  ],
+  "routes": [
+    "/",
+    "/admin",
+    "/audit-log",
+    "/blog",
+    "/blog/:slug",
+    "/contact",
+    "/disputes",
+    "/payouts",
+    "/pricing",
+    "/privacy",
+    "/providers",
+    "/terms"
+  ],
+  "output": "dist"
+}
