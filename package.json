@@ -5,10 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/generate-sitemap.mjs",
-    "build": "vite build",
+    "prebuild": "npm run seo:prepare && node scripts/generate-sitemap.mjs",
+    "build": "vite build && vite build --ssr seo/entry.tsx --outDir dist-seo && npm run seo:build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:before-seo": "vite build",
+    "seo:build": "node node_modules/@omevision/static-seo/site.mjs",
+    "postbuild": "node analytics/build.mjs",
+    "seo:prepare": "node node_modules/@omevision/static-seo/site.mjs --prepare"
   },
   "dependencies": {
     "dompurify": "^3.4.8",
@@ -30,6 +34,7 @@
     "globals": "^16.5.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
-    "vite": "^7.3.1"
+    "vite": "^7.3.1",
+    "@omevision/static-seo": "file:vendor/omevision-static-seo-0.3.0.tgz"
   }
 }
