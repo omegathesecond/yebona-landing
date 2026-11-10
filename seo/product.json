@@ -123,10 +123,10 @@
         }
       ],
       "steps": [
-        "Describe the goods and requirements.",
+        "Name the goods, quantity and details that matter.",
         "Ask for access.",
         "Discuss the available sourcing service.",
-        "Agree the scope and terms."
+        "Agree what the provider will do and the terms."
       ],
       "limitations": "Yebona is accepting early-access enquiries. Confirm provider and service availability before placing an order.",
       "example": "An importer can explain the goods they need and ask an agent what supplier checks and sourcing work are included.",
@@ -225,7 +225,23 @@
       ],
       "availability": "Early-access enquiries. Confirm which providers and services are currently available.",
       "path": "/features/sourcing-providers",
-      "word_count": 179
+      "word_count": 179,
+      "video": {
+        "catalogId": "ma_508dc92524124d0ea09804122ff34513",
+        "id": "yebona-howto-v2",
+        "title": "Prepare a sourcing or shipping enquiry",
+        "url": "https://api.omevision.com/api/media/marketing-videos/yebona/yebona-howto-v2-ebcbd23981cf/yebona-howto-v2.mp4",
+        "poster": "https://api.omevision.com/api/media/marketing-videos/yebona/yebona-howto-v2-ebcbd23981cf/yebona-howto-v2.jpg",
+        "duration": 31.533333,
+        "width": 1920,
+        "height": 1080,
+        "transcript": "Need goods from China? Name the product and quantity. Add the details that matter to your order. Ask Yebona for access and explain the help you need.\n\nWhen a service is available, read what the provider offers. Ask about anything missing. Agree what they will do and what you will receive before choosing them.\n\nFor shipping, give the route and check what the quote covers. Confirm availability and terms before you commit. Ask Yebona about your sourcing needs to start.",
+        "captions": "/_marketing/guides/yebona-howto-v2.vtt",
+        "uploadedAt": "2026-11-10T12:33:40.409Z",
+        "captionsDefault": true,
+        "startAt": 0.0,
+        "endAt": 9.5
+      }
     },
     {
       "slug": "provider-comparison",
@@ -355,7 +371,23 @@
       ],
       "availability": "Early-access enquiries. Confirm which providers and services are currently available.",
       "path": "/features/provider-comparison",
-      "word_count": 179
+      "word_count": 179,
+      "video": {
+        "catalogId": "ma_508dc92524124d0ea09804122ff34513",
+        "id": "yebona-howto-v2",
+        "title": "Prepare a sourcing or shipping enquiry",
+        "url": "https://api.omevision.com/api/media/marketing-videos/yebona/yebona-howto-v2-ebcbd23981cf/yebona-howto-v2.mp4",
+        "poster": "https://api.omevision.com/api/media/marketing-videos/yebona/yebona-howto-v2-ebcbd23981cf/yebona-howto-v2.jpg",
+        "duration": 31.533333,
+        "width": 1920,
+        "height": 1080,
+        "transcript": "Need goods from China? Name the product and quantity. Add the details that matter to your order. Ask Yebona for access and explain the help you need.\n\nWhen a service is available, read what the provider offers. Ask about anything missing. Agree what they will do and what you will receive before choosing them.\n\nFor shipping, give the route and check what the quote covers. Confirm availability and terms before you commit. Ask Yebona about your sourcing needs to start.",
+        "captions": "/_marketing/guides/yebona-howto-v2.vtt",
+        "uploadedAt": "2026-11-10T12:33:40.409Z",
+        "captionsDefault": true,
+        "startAt": 9.5,
+        "endAt": 19.533333333333335
+      }
     },
     {
       "slug": "freight-service-planning",
@@ -384,7 +416,7 @@
       ],
       "steps": [
         "Prepare the shipment details.",
-        "Ask about freight access.",
+        "Ask which shipping services are available.",
         "Clarify the route and responsibilities.",
         "Check the quote and terms."
       ],
@@ -485,11 +517,54 @@
       ],
       "availability": "Early-access enquiries. Confirm which providers and services are currently available.",
       "path": "/features/freight-service-planning",
-      "word_count": 183
+      "word_count": 183,
+      "video": {
+        "catalogId": "ma_508dc92524124d0ea09804122ff34513",
+        "id": "yebona-howto-v2",
+        "title": "Prepare a sourcing or shipping enquiry",
+        "url": "https://api.omevision.com/api/media/marketing-videos/yebona/yebona-howto-v2-ebcbd23981cf/yebona-howto-v2.mp4",
+        "poster": "https://api.omevision.com/api/media/marketing-videos/yebona/yebona-howto-v2-ebcbd23981cf/yebona-howto-v2.jpg",
+        "duration": 31.533333,
+        "width": 1920,
+        "height": 1080,
+        "transcript": "Need goods from China? Name the product and quantity. Add the details that matter to your order. Ask Yebona for access and explain the help you need.\n\nWhen a service is available, read what the provider offers. Ask about anything missing. Agree what they will do and what you will receive before choosing them.\n\nFor shipping, give the route and check what the quote covers. Confirm availability and terms before you commit. Ask Yebona about your sourcing needs to start.",
+        "captions": "/_marketing/guides/yebona-howto-v2.vtt",
+        "uploadedAt": "2026-11-10T12:33:40.409Z",
+        "captionsDefault": true,
+        "startAt": 19.533333333333335,
+        "endAt": 31.533333333333335
+      }
     }
   ],
   "availability": "Early-access enquiries. Confirm which providers and services are currently available.",
   "theme": {
     "accent": "#b54c15"
+  },
+  "guide": {
+    "headline": "Get help bringing goods from China.",
+    "summary": "Explain what you want to source or ship. Ask about the providers and help available.",
+    "steps": [
+      "Describe the goods, quantity and sourcing or shipping help you need.",
+      "Ask for access and discuss the services available.",
+      "Check what the offer covers and agree the terms before committing."
+    ],
+    "cta": {
+      "label": "Ask about sourcing",
+      "url": "https://yebona.com/#waitlist"
+    }
+  },
+  "video": {
+    "catalogId": "ma_508dc92524124d0ea09804122ff34513",
+    "id": "yebona-howto-v2",
+    "title": "Prepare a sourcing or shipping enquiry",
+    "url": "https://api.omevision.com/api/media/marketing-videos/yebona/yebona-howto-v2-ebcbd23981cf/yebona-howto-v2.mp4",
+    "poster": "https://api.omevision.com/api/media/marketing-videos/yebona/yebona-howto-v2-ebcbd23981cf/yebona-howto-v2.jpg",
+    "duration": 31.533333,
+    "width": 1920,
+    "height": 1080,
+    "transcript": "Need goods from China? Name the product and quantity. Add the details that matter to your order. Ask Yebona for access and explain the help you need.\n\nWhen a service is available, read what the provider offers. Ask about anything missing. Agree what they will do and what you will receive before choosing them.\n\nFor shipping, give the route and check what the quote covers. Confirm availability and terms before you commit. Ask Yebona about your sourcing needs to start.",
+    "captions": "/_marketing/guides/yebona-howto-v2.vtt",
+    "uploadedAt": "2026-11-10T12:33:40.409Z",
+    "captionsDefault": true
   }
 }
