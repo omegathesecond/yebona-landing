@@ -35,6 +35,6 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
     "vite": "^7.3.1",
-    "@omevision/static-seo": "file:vendor/omevision-static-seo-0.4.2.tgz"
+    "@omevision/static-seo": "file:vendor/omevision-static-seo-0.4.3.tgz"
   }
 }
